@@ -1,0 +1,107 @@
+// Styles
+@import 'assets/styles/settings';
+
+.wp-admin .wp-block-acf-home-hero {
+	max-width: none;
+}
+
+.acf-block-custom-homes-hero {
+	background-color: $grey-5;
+	
+	
+
+	.wrap {
+		min-height: 300px;
+		position: relative;
+
+		&:after {
+			content: "";
+			top: 20px;
+			left: 20px;
+			position: absolute;
+			width: calc(100% - 40px);
+			height: calc(100% - 40px);
+			display: block;
+			border: 2px solid $white;
+		}
+
+		display: flex;
+		height: 100%;
+		align-items: flex-end;
+		justify-content: center;
+
+		@media screen and (min-width: 768px) {
+			min-height: 500px;
+		}
+
+		@media screen and (min-width: 1024px) {
+			height: calc(100vh - 100px);
+		}
+
+		position: relative;
+		.background-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        figure {
+            display: flex;
+            position: relative;
+            height: 100%;
+
+			&:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%);
+            }
+
+            img {
+                @include object-cover;
+            }
+        }
+
+		header {
+			position: relative;
+			z-index: 3;
+			padding: 20px 20px 60px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			@media screen and (min-width: 768px) {
+				padding: 20px 40px 60px;
+				padding-bottom: 90px;
+			}
+
+			.pulse {
+				margin-bottom: 20px;
+				color: $white;
+
+				&:hover {
+					color: $white;
+				}
+			}
+
+			h1 {
+				color: $white;
+				margin-bottom: 30px;
+			}
+
+			.acf-button {
+				&:hover {
+					background-color: $white;
+					color: $black;
+				}
+			}
+		}
+	}
+}

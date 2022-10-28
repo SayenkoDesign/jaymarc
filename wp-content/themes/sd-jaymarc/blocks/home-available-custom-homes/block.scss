@@ -1,0 +1,191 @@
+// Styles
+@import "assets/styles/settings";
+
+// Avaible/ Custom Homes
+
+.acf-block-home-available-custom-homes {
+    .grid {
+        display: grid;
+    }
+
+    .grid-item {
+        position: relative;
+
+        @media only screen and (max-width: 768px) {
+            .background-image {
+                position: relative;
+                &:after {
+                    content: "";
+                    top: 20px;
+                    left: 20px;
+                    position: absolute;
+                    width: calc(100% - 40px);
+                    height: calc(100% - 40px);
+                    display: block;
+                    border: 2px solid $white;
+                }
+            }
+        }
+
+        .grid-item-wrapper {
+            position: relative;
+
+            &:hover {
+                &:before {
+                    display: none;
+                }
+
+                .overlay {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+
+        img {
+            display: block;
+        }
+    }
+
+    header {
+        text-align: center;
+
+		h2 {
+			text-transform: uppercase;
+		}
+    }
+
+    .text {
+        padding: 28px 28px 56px;
+        text-align: center;
+
+        p {
+            font-size: 1.1875rem;
+            letter-spacing: 0.34px;
+            line-height: 1.84210526;
+        }
+
+        .acf-button-wrapper {
+            justify-content: center;
+        }
+    }
+
+    @media only screen and (min-width: 769px) {
+        .grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .background-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        figure {
+            display: flex;
+            position: relative;
+            height: 100%;
+
+            
+
+            img {
+                @include object-cover;
+            }
+        }
+
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .text {
+            padding: 28px;
+
+            @media only screen and (min-width: 1025px) {
+                padding: 56px 114px;
+            }
+
+            p {
+                color: $white;
+            }
+
+            .acf-button-wrapper {
+                justify-content: center;
+            }
+
+            .acf-button {
+                min-width: 270px;
+                
+                &:hover {
+                    background-color: $white;
+                    color: $black;
+                }
+            }
+        }
+
+        .grid-item-left .grid-item-wrapper {
+            &:before {
+                content: "";
+                top: 20px;
+                left: 20px;
+                position: absolute;
+                width: calc(100% - 20px);
+                height: calc(100% - 40px);
+                display: block;
+                border-top: 2px solid $white;
+                border-bottom: 2px solid $white;
+                border-left: 2px solid $white;
+                z-index: 0;
+            }
+        }
+
+        .grid-item-right .grid-item-wrapper {
+            &:before {
+                content: "";
+                top: 20px;
+                right: 20px;
+                position: absolute;
+                width: calc(100% - 20px);
+                height: calc(100% - 40px);
+                display: block;
+                border-top: 2px solid $white;
+                border-bottom: 2px solid $white;
+                border-right: 2px solid $white;
+            }
+        }
+    }
+}
+
+.acf-block-preview {
+    .acf-block-home-available-custom-homes {
+        .grid-item {
+            position: relative;
+
+            .background-image {
+                &:after {
+                    display: none;
+                }
+            }
+        }
+
+        .grid-item-wrapper {
+
+			&:before {
+				display: none!important;
+			}
+            .overlay {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+}

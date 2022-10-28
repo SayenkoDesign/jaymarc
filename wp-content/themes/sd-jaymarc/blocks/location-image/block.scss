@@ -1,0 +1,72 @@
+// Styles
+@import 'assets/styles/settings';
+
+
+
+.acf-block-location-image {
+	display: block;
+	position: relative;
+	z-index: 2;
+
+	position: relative;
+    
+
+	img {
+		display: block;
+		
+	}
+
+	.image {
+		padding: 50px 0 50px 50px;
+		position: relative;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: calc(100% - 50px);
+			background-color: $grey-6;
+		}
+
+		picture,
+		img {
+			position: relative;
+			z-index: 3;
+		}
+
+		.image-wrap {
+			color: $white;
+			position: relative;
+
+			picture {
+				position: relative;
+				z-index: 3;
+	
+				&:after {
+					content: '';
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					
+					background-color: rgba(0,0,0,.3);
+				}		
+			}
+
+			.pulse {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				z-index: 9;
+			}
+		}
+
+		
+	}
+
+	
+}

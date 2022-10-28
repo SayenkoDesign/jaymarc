@@ -1,0 +1,61 @@
+// Theme
+
+:root {
+	--wp--style--block-gap: initial!important;
+}
+
+
+body {
+	.align-last-bottom {
+		> .gb-inside-container {
+			display: flex;
+			flex-direction: column;
+			> *:last-child {
+				margin-top: 0;
+			}
+		}
+	}
+}
+
+body .ml-0 {
+	.gb-inside-container {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
+.border-offset-img {
+	figure {
+		margin-right: 12px;
+		position: relative;
+
+		&:before {
+			content: '';
+			width: 100%;
+			height: 100%;
+			border: 2px solid $black;
+			position: absolute;
+			top: 0;
+			right: 0;
+			z-index: 3;
+		}
+
+		img {
+			position: relative;
+			transform: translate(12px, -12px);
+		}
+
+		a {
+			&:before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 4;
+			}
+		}
+	}
+}
+

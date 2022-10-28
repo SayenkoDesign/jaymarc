@@ -1,0 +1,143 @@
+// Contact
+
+.page-template-contact {
+	.contact-hero {
+		padding-top: 60px;
+		@media (min-width: 1100px) {
+			padding-top: 122px;
+		}
+
+		@media (max-width: 1099px) {
+			.gb-grid-wrapper > .gb-grid-column {
+				width: 100%!important;
+
+				> .gb-container-padding-large {
+					> .gb-inside-container {
+						padding-top: 0;
+						padding-bottom: 40px;
+					}
+				}
+			}
+		}
+
+		.padding-large-left-custom {
+			> .gb-inside-container {
+
+				@media (max-width: 1099px) {
+					padding-top: 0;
+					padding-bottom: 60px;
+				}
+				
+				@media (min-width: 1100px) {
+					padding-left: 0;
+				}
+			}
+		}
+	}
+
+	.gform_wrapper {
+		margin: 0 auto;
+		max-width: 626px;
+
+		form {
+			margin-top: 30px;
+		}
+	}
+
+	.gform_wrapper {
+		.gfield_label,
+		.ginput_complex label {
+			color: $white;
+		}
+
+		.gform_title,
+		.gform_description,
+		.gform_required_legend {
+			color: $white;
+		}
+
+		.gform_required_legend {
+			display: none;
+		}
+
+		input[type="text"],
+		input[type="url"],
+		input[type="email"],
+		input[type="tel"],
+		input[type="number"],
+		input[type="password"],
+		input[type="file"],
+		textarea,
+		select {
+			background-color: $white!important;
+		}
+
+		input[type="text"],
+		input[type="url"],
+		input[type="email"],
+		input[type="tel"],
+		input[type="number"],
+		input[type="password"] {
+			border-bottom: solid 1px $white;
+
+			&:focus {
+				border-color: $white !important;
+			}
+		}
+
+		textarea {
+			border: 1px solid $white;
+
+			&:focus {
+				border-color: $white !important;
+			}
+		}
+
+		select {
+			border-bottom: solid 1px $white!important;
+			&:focus {
+				border-color: $white !important;
+			}
+		}
+
+		.gfield
+			input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]):not([type="image"]):not([type="file"]),
+		.gfield_select[multiple="multiple"] {
+			border-bottom: solid 1px $white!important;
+		}
+
+		.privacy-policy-disclaimer {
+			a {
+				color: $white!important;
+			}
+		}
+
+		.gform_validation_errors {
+			position:absolute;
+			left:-10000px;
+			top:auto;
+			width:1px;
+			height:1px;
+			overflow:hidden;
+		}
+
+		.gfield_error .gfield_label,
+		.gfield_required {
+			color: $orange-dark!important;
+		}
+
+		.gform_button {
+			border-radius: 4px;
+		}
+	}
+
+	.auto-width {
+		display: flex;
+
+		.gb-inside-container {
+			flex: 0 1 auto;
+		}
+	}
+
+}
+

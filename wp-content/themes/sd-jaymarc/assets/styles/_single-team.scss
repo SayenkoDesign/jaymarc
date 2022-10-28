@@ -1,0 +1,160 @@
+// Single Team
+
+body.single-team {
+
+	.site-content {
+		margin: 0 auto;
+		max-width: 1300px;
+		padding-top: 0;
+	}
+
+	.site {
+		overflow-x: hidden;
+	}
+
+	@media (min-width: 768px) {
+
+		.inside-article {
+			display: grid;
+            grid-template-columns: 5fr 7fr;
+            gap: 80px;
+		}
+	}
+
+	.featured-image {
+		padding-top: 90px;
+
+		@media (min-width: 1025px) {
+			padding-top: 152px;
+		}
+
+		.photos {
+			margin-top: 5px;
+
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 5px;
+
+			img {
+				aspect-ratio: 1;
+				object-fit: cover;
+
+				@supports not (aspect-ratio: auto) { 
+					height: 260px;
+					
+				  }
+			}
+		}
+	}
+
+	.entry-header {
+		position: relative;
+		padding-top: 90px;
+
+		@media (min-width: 1025px) {
+			padding-top: 152px;
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: -50vw;
+			width: 150vw;
+			height: 100%;
+			background-color: $grey-7;
+			z-index: -1;
+		}
+
+		.grid {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: center;
+
+			&__item {
+				> *:last-child {
+					margin-bottom: 15px;
+				}
+			}
+		}
+
+		.position,
+		.job-title {
+			color: $grey-5;
+		}
+
+		.team-contact-info {
+			list-style-type: none;
+			margin-left: 0;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+
+			li {
+				padding: 0 6px;
+
+				&.linkedin,
+				&.email {
+					a {
+						color: $white;
+						display: block;
+						width: 30px;
+						height: 30px;
+						background-color: $blue;
+						border-radius: 50%;
+						padding: 5px;
+						position: relative;
+
+						&:hover {
+							background-color: $black;
+						}
+
+						.icon {
+							color: $white;
+						}
+
+						svg {
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							transform: translate(-50%,-50%);
+
+						}
+					}
+				}
+
+				&.phone {
+					a {
+						color: $blue;
+						position: relative;
+						top: 2px;
+					}
+				}
+			}
+		}
+	}
+
+	.related-posts {
+		margin-top: 60px;
+
+		@media (min-width: 1024px) {
+			margin-top: 90px;
+		}
+
+		h2 {
+			margin-bottom: 50px;
+			text-align: center;
+		}
+
+		.specs {
+			list-style-type: none;
+			margin-left: 0;
+
+			span {
+				font-weight: 700;
+			}
+		}
+	}
+	
+}

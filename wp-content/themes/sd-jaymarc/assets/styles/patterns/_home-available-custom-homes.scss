@@ -1,0 +1,119 @@
+// Avaible/ Custom Homes
+
+.home-available-custom-homes {
+    .position-relative {
+        > .gb-inside-container {
+            > .gb-container {
+                .gb-inside-container {
+                    padding: 28px 0 56px;
+                    text-align: center;
+					
+
+                    p {
+                        font-size: 1.1875rem;
+                        letter-spacing: 0.34px;
+                        line-height: 1.84210526;
+                    }
+                }
+
+				
+            }
+
+            @media only screen and (min-width: 769px) {
+                //display: grid;
+
+                > * {
+                   // grid-area: 1/1/2/2;
+                }
+
+				.gb-block-image {
+					@include object-cover;
+				} 
+
+                > .gb-container {
+                    background-color: rgba(0, 0, 0, 0.8);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+					opacity: 0;
+					visibility: hidden;
+
+					
+
+                    .gb-inside-container {
+                        padding: 56px 114px;
+
+                        p {
+                            color: $white;
+                        }
+
+						.gb-button {
+							min-width: 270px;
+
+							&:hover {
+								background-color: $white;
+								color: $black;
+							}
+						}
+                    }
+                }
+            }
+        }
+
+		@media only screen and (min-width: 769px) {
+			&.column-left {
+				> .gb-inside-container {
+					position: relative;
+
+					&:before {
+						content: '';
+						top: 20px;
+						left: 20px;
+						position: absolute;
+						width: calc(100% - 20px);
+						height: calc(100% - 40px);
+						display: block;
+						border-top: 1px solid $white;
+						border-bottom: 1px solid $white;
+						border-left: 1px solid $white;
+						z-index: 0;
+					}
+
+				}
+			}
+
+			&.column-right {
+				> .gb-inside-container {
+					position: relative;
+
+					&:before {
+						content: '';
+						top: 20px;
+						right: 20px;
+						position: absolute;
+						width: calc(100% - 20px);
+						height: calc(100% - 40px);
+						display: block;
+						border-top: 1px solid $white;
+						border-bottom: 1px solid $white;
+						border-right: 1px solid $white;
+					}
+
+				}
+			}
+		}
+
+		&:hover {
+			.gb-container {
+				opacity: 1;
+				visibility: visible;	
+			}
+
+			> .gb-inside-container {
+				&:before {
+					display: none;
+				}
+			}
+		}
+    }
+}

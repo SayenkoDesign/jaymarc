@@ -1,0 +1,87 @@
+// Gravity Forms
+
+.gform_wrapper {
+	.radio-buttons .gfield_radio {
+		
+		width: 100%!important;
+
+		.gchoice {
+			
+			label {
+				background-color: transparent;
+				border: 1px solid $urban-gray;
+				color: $urban-gray;
+				cursor: pointer;
+				font-size: 14px;
+				font-weight: normal;
+				text-transform: uppercase;
+				border-radius: 24px;
+				padding: 12px 24px;
+				text-align: center;
+				line-height: 1;
+				// min-width: 180px;
+				overflow: hidden;
+				position: relative;
+				z-index: 1;
+				max-width: 100%;
+				width: 100%;
+				margin-bottom: 1.5rem;
+				
+				&:before {
+					background-color: $red;
+					bottom: 0;
+					content: "";
+					display: block;
+					height: 100%;
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 116%;
+					z-index: -1;
+					transform-origin:0 0;
+					transform: translateX(-85%) skewX(-25deg);
+					transition: transform .2s ease-in;
+				}
+
+				&:focus,
+				&:hover { 
+					background-color: transparent;
+					color: #fff;
+					&:before {
+						transform: translateX(0) skewX(-25deg);
+					}
+				}
+			}
+		}
+
+		.gfield-choice-input,
+		input {
+			visibility: hidden;
+			opacity: 0;
+			position: absolute;
+			z-index: -1;
+
+			&:checked + label {
+				background-color: transparent;
+				color: #fff;
+				&:before {
+					transform: translateX(0) skewX(-25deg);
+				}
+			}
+		}	
+	}
+
+	
+}
+
+.gfield_required {
+	color: $grey-1!important;
+}
+
+.gform_required_legend {
+	display: none!important;
+}
+
+.gform_description + .gform_required_legend {
+	margin-top: 30px;
+}

@@ -1,0 +1,56 @@
+// Styles
+@import "assets/styles/settings";
+
+.acf-block-about-numbers {
+    .wrap {
+        @media (min-width: 640px) {
+            border-top: 2px solid $black;
+        }
+    }
+
+    .numbers {
+        margin: 0 0 50px 0;
+        padding: 0;
+        list-style-type: none;
+
+        li {
+            div {
+                padding: 30px;
+
+                h3 {
+                    color: $grey-3;
+                    //font-weight: 500;
+                    margin-bottom: 0;
+                    text-transform: uppercase;
+
+                    font-size: 40px;
+                }
+
+                p {
+                    color: $grey-5;
+                }
+            }
+        }
+
+        @media (max-width: 639px) {
+            li {
+                display: block;
+                margin-bottom: 30px;
+                border: 2px solid $black;
+            }
+        }
+
+        @media (min-width: 640px) {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 280px));
+
+            li {
+                border-left: 2px solid $black;
+
+                div {
+                    padding: 30px 30px 30px 50px;
+                }
+            }
+        }
+    }
+}

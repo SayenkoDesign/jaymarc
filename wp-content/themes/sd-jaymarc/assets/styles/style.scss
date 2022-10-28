@@ -1,0 +1,106 @@
+// Styles
+
+// npx mix watch
+
+// Accessible Slick
+
+$slick-font-path: "../fonts/";
+$slick-font-family: "slick";
+$slick-loader-path: "../";
+$slick-arrow-color: black;
+$slick-dot-color: black;
+$slick-dot-color-active: $slick-dot-color;
+$slick-prev-character: "\2190";
+$slick-next-character: "\2192";
+$slick-dot-character: "\2022";
+$slick-pause-character: "\23f8";
+$slick-play-character: "\25b6";
+$slick-dot-size: 12px;
+$slick-opacity-default: 0.75;
+$slick-opacity-active: 1;
+$slick-opacity-not-active: 0.25;
+
+@function image-url($url) {
+	@return $url;
+}
+
+
+@function font-url($url) {
+	@return $url;
+}
+
+@import '~@accessible360/accessible-slick/slick/slick.scss';
+@import '~@accessible360/accessible-slick/slick/slick-theme.scss';
+
+// FancyApps
+@import "~@fancyapps/ui/dist/fancybox.css";
+
+@import 'settings';
+@import 'typography';
+@import 'theme';
+
+// Mixins
+@import 'mixins/button';
+@import 'mixins/flexbox';
+
+// Plugins
+@import 'plugins/fancybox';
+// @import 'plugins/gravity-forms';
+@import 'plugins/slick';
+@import 'plugins/facetwp';
+
+// Components
+@import 'components/forms';
+
+
+// Layout
+
+@import 'header';
+@import 'footer';
+@import 'menu';
+
+// Patterns
+
+// @import 'patterns/home-available-custom-homes';
+
+// Elements
+
+@import 'blocks';
+
+@import 'elements/buttons';
+@import 'elements/wp-block-gallery';
+
+/* @import 'elements/list';*/
+@import 'elements/headings'; 
+
+// Templates
+
+@import 'archive';
+
+@import 'page';
+@import 'home';
+@import 'about';
+@import 'single';
+@import 'post';
+/*@import 'home';
+@import 'contact'; */
+@import 'blog';
+
+@import 'available-homes';
+@import 'single-home';
+@import 'single-plan';
+@import 'single-portfolio';
+@import 'single-location';
+
+@import 'portfolio';
+
+@import 'plans';
+@import 'reviews';
+@import 'careers';
+
+
+@import 'single-team';
+
+// Blocks
+
+// @import 'blocks/wp-block-latest-posts';

@@ -1,0 +1,259 @@
+// Single Plan
+
+.single-plan {
+    .site-content {
+		padding-top: 60px!important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+
+		@media (min-width: 1024px) {
+			padding-top: 125px!important;
+		}
+    }
+
+    article {
+        padding-left: 30px;
+        padding-right: 30px;
+
+        @media (min-width: 769px) {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+		.entry-title {
+
+			margin-bottom: 50px;
+
+			> div {
+				margin-bottom: 30px;
+			}
+			
+			@media (min-width: 768px) {
+				display: flex;
+				flex-wrap: wrap;
+
+				> div{
+					flex: 1 1 50%;
+					
+
+					&:last-child {
+						text-align: right;
+					}
+				}
+			}
+		}
+
+		@media (min-width: 640px) {
+			.social-share {
+				display: inline-flex;
+				flex-wrap: wrap;
+				align-items: center;
+
+				> div{
+					flex: 1 1 50%;
+				}
+
+				h4 {
+					margin-bottom: 0;
+				}
+			}
+		}
+    }
+
+    .photos {
+
+		margin-bottom: 50px;
+
+		> div {
+			position: relative;
+
+			.acf-button-wrapper {
+				position: absolute;
+				bottom: 30px;
+				right: 20px;
+			}
+		}
+
+        @media (max-width: 640px) {
+            > div {
+                &:not(:last-child):nth-child(2) {
+                    display: none;
+                }
+            }
+
+            > div {
+                &:last-child {
+                    grid-column: span 2;
+                }
+            }
+        }
+
+        @media (max-width: 979px) {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-auto-rows: auto;
+            gap: 18px;
+
+            > div {
+                img {
+                    display: block;
+                    object-fit: cover;
+                    aspect-ratio: 1.5;
+
+                    @supports not (aspect-ratio: auto) {
+                        height: 150px;
+                    }
+                }
+
+                &:first-child {
+                    grid-column: span 2;
+                }
+
+                &:last-child:nth-child(2) {
+                    grid-column: span 2;
+                }
+            }
+        }
+
+        @media (min-width: 980px) {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 58fr 42fr;
+			gap: 18px;
+
+            > div {
+                img {
+                    display: block;
+                    height: 225px;
+                    object-fit: cover;
+                }
+
+                &:first-child {
+                    grid-row: span 2;
+
+                    img {
+                        height: 470px;
+                    }
+                }
+
+                &:last-child:first-child {
+                    grid-column: span 2;
+                }
+
+                &:last-child:nth-child(2) {
+                    grid-row: span 2;
+
+                    img {
+                        height: 470px;
+                    }
+                }
+            }
+        }
+    }
+
+	.video-wrapper {
+		position: relative;
+
+		.pulse {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			color: $white;
+		}
+	}
+
+	.details {
+		.grid {
+			@media (min-width: 980px) {
+				display: grid;
+				grid-template-columns: 58fr 42fr;
+				gap: 18px;
+			}
+
+			&__column {
+				padding: 0 10px;
+				margin-bottom: 30px;
+
+				&--right {
+					text-align: center;
+
+					.acf-button-wrapper {
+						justify-content: center;
+
+						.acf-button {
+							min-width: 222px;
+							padding-top: 8px;
+							padding-bottom: 8px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+    .specs {
+        list-style-type: none;
+        margin-left: 0;
+		display: flex;
+		flex-wrap: wrap;
+
+		@media (min-width: 768px) {
+			@include flex-gap( 50px );
+		}
+
+		li {
+
+			color: $grey-3;
+			font-family: $heading-font;
+			font-size: 22px;
+			letter-spacing: 0;
+			line-height: 26px;
+			//font-weight: 600;
+			margin-bottom: 24px;
+
+			flex: 1 1 50%;
+
+			@media (min-width: 768px) {
+				flex: 1 1 auto;
+			}
+
+			span {
+				display: block;
+				color: $grey-5;
+				font-family: $heading-font;
+				font-size: 14px;
+				letter-spacing: 0.25px;
+				line-height: 23px;
+				font-weight: 400;
+				margin-top: 5px;
+			}
+		}
+    }
+
+    
+	.highlights {
+		&__box {
+			position: relative;
+			padding: 10px;
+			border: 2px solid $black;
+
+			padding: 25px 30px;
+
+			@media only screen and (min-width: 768px) {
+				padding: 50px 60px;
+			}
+
+			&:before {
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				border: 2px solid $black;
+				top: -10px;
+				left: -10px;
+			}
+		}
+	}
+}

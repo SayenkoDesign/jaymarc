@@ -1,0 +1,40 @@
+// Single Location
+
+.single-location {
+
+	.site-content {		
+		padding-left: 0!important;
+		padding-right: 0!important;
+	}
+
+	.max-width-350 {
+			max-width: 350px!important;
+	}
+
+	.accordion {
+		max-width: 780px;
+		margin: 0 auto;
+	}
+
+	.image-border {
+		figure {
+			padding-left: 10px;
+            padding-top: 10px;
+            position: relative;
+
+            &:before {
+                content: "";
+                position: absolute;
+                width: calc(100% - 10px);
+                height: calc(100% - 10px);
+                border: 2px solid $black;
+                top: 0;
+                left: 0;
+            }
+
+            img {
+                display: block;
+            }
+		}
+	}
+}

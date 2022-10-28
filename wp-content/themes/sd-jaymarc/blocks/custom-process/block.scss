@@ -1,0 +1,256 @@
+// Styles
+@import 'assets/styles/settings';
+
+
+.acf-block-custom-process {
+
+	> * {
+		max-width: 1300px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	@media only screen and (min-width: 768px) {
+
+
+		position: relative;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: calc(63px + 1rem);
+			left: 0;
+			width: 100%;
+			height: 2px;
+			background-color: $grey-5;
+			z-index: -1;
+		}
+
+		.is-hidden {
+			display: none!important;
+		}
+
+		.invisible {
+			height: 0;
+			opacity: 0;
+			overflow: hidden;
+		}
+	}
+	
+	.slick-grid {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		@media only screen and (max-width: 767px) {
+			display: none;
+		}
+
+		@media only screen and (min-width: 768px) {
+
+			&.flex-grid-items-3 > div {
+				width: calc(100% / 3);
+			}
+
+			&.flex-grid-items-4 > div {
+				width: calc(100% / 4);
+			}
+
+			&.flex-grid-items-5 > div {
+				width: calc(100% / 5);
+			}
+
+
+			> div {
+				padding: 30px 0 0;
+			}
+		}
+
+		@media only screen and (min-width: 1024px) {
+
+			> div {
+				padding: 60px 0 0;
+			}
+		}
+
+		> div {
+			flex: 0 0 auto;
+			width: 100%;
+			cursor: pointer;
+			padding: 1rem;
+
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+
+			.icon {
+				margin-left: auto;
+				margin-right: auto;
+				margin-bottom: 20px;
+				border: 2px solid $grey-5;
+				background-color: $white;
+
+				@media only screen and (min-width: 768px) {
+					margin-bottom: 30px;
+				}
+
+				border-radius: 50%;
+				width: 126px;
+				height: 126px;				
+				display: grid;
+
+				> span {
+					grid-area: 1/1/2/2;
+					display: none;
+					width: 126px;
+					height: 126px;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+
+
+					&:first-child {
+						display: flex;
+					}
+				}
+
+				&:hover {
+					background-color: $grey-5;
+
+					span {
+						display: none;
+					}
+					
+					span:last-child {
+						display: flex;
+						position: relative;
+						z-index: 3;
+					}
+				}
+			}
+
+			img {
+				height: auto;
+				max-height: 100%;
+			}
+
+			.content {
+				margin: 0 auto;
+				max-width: 210px;
+			}
+
+			h3,
+			h4 {
+				margin-bottom: 0.75rem;
+			}
+
+			h3 {
+				&:hover {
+					color: $blue;
+				}
+			}
+
+			p {
+				font-style: italic;
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.slick-wrapper {
+		margin: 0 auto;
+		max-width: calc(100% - 100px);
+	}
+
+	.slick {
+
+		.slick-content {
+			max-width: 400px;
+			margin: 0 auto;
+			text-align: center;
+
+			.icon {
+				margin: 0 auto 30px;
+				width: 126px;
+				height: 126px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				border: 2px solid $grey-5;
+
+				border-radius: 50%;
+
+				@media only screen and (min-width: 768px) {
+					margin: 0 auto 30px;
+				}
+
+				img {
+					height: auto;
+					max-height: 100%;
+				}
+
+				
+			}
+
+			h4 {
+				font-style: italic;
+			}
+		}
+
+		.slick-dots {
+			position: relative;
+			bottom: 0;
+		}
+
+		.slick-dots li button .slick-dot-icon {
+			
+			color: transparent;
+			border: 1px solid $grey-4;
+			
+			&:before {
+				font-size: 44px;
+			}
+
+		}
+
+		.slick-arrow {
+			@media only screen and (max-width: 767px) {
+				display: none!important;
+			}
+
+			&.slick-prev {
+				left: 0;
+			}
+
+			&.slick-next {
+				right: 0;
+			}
+		}
+	}
+
+	.slick-close {
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 30px;
+
+		@media only screen and (max-width: 767px) {
+			display: none;
+		}
+
+		a {
+			color: $blue;
+			display: block;
+			width: 66px;
+			height: 66px;
+		}
+	}
+	
+}
+
+.acf-block-preview .acf-block-custom-process {
+	.slick,
+	.slick-close {
+		display: none;
+	}
+}

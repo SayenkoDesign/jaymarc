@@ -1,0 +1,48 @@
+// Editor Style
+
+@import "assets/styles/settings";
+@import "assets/styles/mixins/button";
+
+.acf-block-placeholder {
+	background-color: #979797;
+	padding: 2rem;
+	min-height: 200px;
+	text-align: left;
+	margin: 0;
+	color: #1e1e1e;
+	border-radius: 2px;
+
+	&__title {
+		display: flex;
+		align-items: center;
+
+		font-size: 18pt;
+		font-weight: 400;
+		margin-bottom: 16px;
+
+		span {
+			margin-right: 1ch;
+		}
+	}
+}
+
+.acf-button {
+	@include acf-button;
+}
+
+h1,
+h2,
+h3 {
+	&.gb-headline-border-top {
+		position: relative;
+
+		&:before {
+			content: '';
+			width: 40px;
+			height: 2px;
+			background-color: $black;
+			display: block;
+			margin-bottom: 35px;
+		}
+	}
+}

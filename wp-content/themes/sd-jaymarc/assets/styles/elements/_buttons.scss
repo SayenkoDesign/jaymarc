@@ -1,0 +1,201 @@
+// Buttons
+
+.acf-button-wrapper {
+	display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    clear: both;	
+
+	&.stacked {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	> *:not(:first-child) {
+		margin-top: 30px;
+	}
+}
+
+.acf-button-wrapper,
+.gb-button-wrapper {
+	.gb-button {
+		//background-color: $black;
+		box-shadow: 0 11px 12px 0 rgba(0,0,0,0.12);
+		border: 2px solid transparent;
+		min-width: 225px; // 180
+		text-align: center;
+		//font-weight: 600;
+
+		&.gb-button-small {
+			// font-size: 0.75rem;
+			min-width: 150px;
+		}
+
+		&.large {
+			// font-size: 0.75rem;
+			min-width: 270px;
+		}
+
+		&.reversed,
+		&.gb-button-reverse {
+			border-color: $black;
+			box-shadow: none;
+
+			&:hover {
+				border-color: $black;
+				color: $white;
+			}
+		}
+
+		&.gb-button-more-arrow {
+			font-size: 1rem;
+			letter-spacing: 0;
+			text-transform: none;
+			box-shadow: none;
+			border: none;
+			min-width: 0;
+			text-align: left;
+			position: relative;
+			padding-right: 36px;
+
+			&:after {
+				position: absolute;
+				content: '';
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' fill='none' fill-rule='evenodd' xmlns:v='https://vecta.io/nano'%3E%3Cpath d='M20.442 12.973c.157.149.373.227.58.227s.422-.078.58-.227L27.76 7.15a.75.75 0 0 0 0-1.098L21.602.229a.85.85 0 0 0-1.16 0 .74.74 0 0 0 0 1.097l5.577 5.275-5.577 5.275c-.315.306-.315.799 0 1.097z' fill='currentColor'/%3E%3Cpath stroke='currentColor' stroke-width='1.8' stroke-linecap='square' d='M25.964 6.6L1.3 6.9'/%3E%3C/svg%3E");
+				background-size: contain;
+				width: 28px;
+				height: 14px;
+				top: 50%;
+				right: 0;
+				transform: translateY(-50%);
+			}
+		}
+
+		&.gb-button-icon {
+			min-width: 0;
+		}
+
+		&.gb-button-icon,
+		&.gb-button-phone-number,
+		&.gb-button-more-arrow
+		 {
+			box-shadow: none;
+			border: none;
+			min-width: none;
+			text-align: left;
+		}
+	}
+
+	.acf-button {
+		@include acf-button;
+
+		&.button-small {
+			font-size: 0.8125rem;
+			min-width: 150px;
+			padding: 6px 20px;
+		}
+
+		&.reversed {
+			background-color: $white;
+			border: 2px solid $black;
+			box-shadow: none;
+			color: $black;
+
+			&:hover {
+				background-color: $black;
+				color: $white;
+			}
+		}
+
+		&.blue {
+			color: $blue;
+			border-color: $blue;
+
+			&:hover {
+				background-color: $blue;
+			}
+		}
+
+		&.button-black {
+			background-color: $black;
+
+			&:hover {
+				background-color: $blue;
+			}
+		}
+
+		&.acf-button-more-arrow {
+			color: $blue;
+			font-size: 1rem;
+			letter-spacing: 0;
+			text-transform: none;
+			box-shadow: none;
+			border: none;
+			min-width: 0;
+			text-align: left;
+			position: relative;
+			padding-right: 36px;
+			background-color: transparent;
+
+			&:after {
+				position: absolute;
+				content: '';
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' fill='none' fill-rule='evenodd' xmlns:v='https://vecta.io/nano'%3E%3Cpath d='M20.442 12.973c.157.149.373.227.58.227s.422-.078.58-.227L27.76 7.15a.75.75 0 0 0 0-1.098L21.602.229a.85.85 0 0 0-1.16 0 .74.74 0 0 0 0 1.097l5.577 5.275-5.577 5.275c-.315.306-.315.799 0 1.097z' fill='currentColor'/%3E%3Cpath stroke='currentColor' stroke-width='1.8' stroke-linecap='square' d='M25.964 6.6L1.3 6.9'/%3E%3C/svg%3E");
+				background-size: contain;
+				width: 28px;
+				height: 14px;
+				top: 50%;
+				right: 0;
+				transform: translateY(-50%);
+			}
+		}
+	}
+}
+
+.gb-button-wrapper-group {
+	display: inline-flex;
+	align-items: center!important;
+	--gap: 20px;
+	gap: var(--gap);
+
+	> * {
+
+		@supports not  (gap: 10px) {
+			margin: var(--gap) 0 0 var(--gap);
+		}
+	}
+
+	@media (min-width: 768px) {
+
+		@supports not  (gap: 10px) {
+			
+			display: inline-flex;
+			flex-wrap: wrap;
+			margin: calc(-1 * var(--gap)) 0 0 calc(-1 * var(--gap));
+			width: calc(100% + var(--gap));
+
+			> * {
+				margin: var(--gap) 0 0 var(--gap);
+			}
+		}
+	}
+}
+
+
+.gb-button-link {
+	text-decoration: underline!important;
+}
+
+
+.link-cover {
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 3;
+	}
+}

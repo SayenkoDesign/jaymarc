@@ -1,0 +1,82 @@
+// Styles
+@import "assets/styles/settings";
+
+.acf-block-location-schools {
+
+	max-width: 400px;
+	margin: 0 auto;
+
+
+    .filter-button-group {
+        list-style-type: none;
+			margin-left: 0;
+			display: flex;
+			flex-wrap: wrap;
+			margin-bottom: 60px;
+
+			li {
+				padding: 0 10px;
+				margin-right: 24px;
+				flex: 0 1 auto;
+
+				padding-top: 24px;
+
+				border-top: 3px solid transparent;
+
+				&.active {
+					border-top: 3px solid $grey-1;
+				}
+
+				span {
+					color: $grey-4;
+                    cursor: pointer;
+					font-family: $heading-font;
+					font-size: 1rem;
+					letter-spacing: 0;
+					line-height: 1.1875;
+					text-transform: uppercase;
+					//font-weight: 500;
+					text-decoration: none;
+				}
+			}
+    }
+
+    .school {
+        &__item {
+            position: relative!important;
+            top: initial!important;
+            left: initial!important;
+			padding-left: 55px;
+        }
+        &__rating {
+            position: absolute;
+			top: 0;
+			left: 0;
+			width: 45px;
+			height: 45px;
+			padding: 5px;
+			background-color: $blue;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			color: $white;
+			font-size: 11px;
+			font-family: $heading-font;
+			letter-spacing: 0.34px;
+
+			span {
+				font-size: 19px;
+				font-weight: 600;
+			}
+            
+        }
+
+		&__title {
+            
+            
+        }
+
+    }
+}

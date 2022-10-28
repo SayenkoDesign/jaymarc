@@ -1,0 +1,68 @@
+// Styles
+@import "assets/styles/settings";
+
+.acf-block-jobs {
+    .accordion,
+    .toggles {
+        height: auto!important;
+        border: 1px solid #EFF3F1;
+        
+        &__item {
+            position: relative!important;
+            top: initial!important;
+            left: initial!important;
+        }
+        &__title {
+            border-top: 1px solid #EFF3F1;
+            font-weight: normal;
+            margin-bottom: 0;
+            text-transform: uppercase;
+            font-size: 1.125rem;
+            font-family: $body-font;
+            a {
+                display: block;
+                padding: 24px 60px 24px 30px;
+                position: relative;
+                font-weight: inherit;
+                text-decoration: none;
+                text-transform: inherit;
+
+                &:before {
+					position: absolute;
+					top: 50%;
+					transform: translateY(-50%);
+					right: 20px;
+					margin-top: 0!important;
+					color: $blue;
+					font-size: 2.5rem;
+					content: "\002B";
+				}
+
+				&.active:before {
+					content: "\2212";
+				}
+
+                &:hover,
+                &.active {
+                    color: $blue;
+                }
+            }
+        }
+
+        &__content {
+            background-color: #eff3f1;
+            padding: 24px 60px 24px 30px;
+
+            .acf-button-wrapper {
+                margin-bottom: 25px;
+            }
+
+            .date-posted {
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    [id^="accordion-"] {
+    }
+}

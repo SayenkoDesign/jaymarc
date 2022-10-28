@@ -1,0 +1,71 @@
+// Footer
+
+.site-footer {
+
+	.footer-line {
+		padding-top: 60px;
+
+	}
+
+	@media screen and (max-width: 1024px) {
+		.wp-block-navigation {
+			align-items: center;
+			&__container {
+				align-items: center;
+			}
+		}
+	}
+
+	.wp-block-navigation, .wp-block-navigation .wp-block-page-list, .wp-block-navigation__container, .wp-block-navigation__responsive-container-content {
+		gap: 10px!important;
+	}
+
+	@media screen and (min-width: 1025px) {
+		.footer-line {
+			padding-top: 90px;
+			> .gb-inside-container {
+				border-top: 1px solid #D7D5D5;
+			}
+
+			nav {
+				margin-top: -32px;
+			}
+
+			img {
+				margin-top: 25px;
+			}
+		}
+	}
+
+	font-family: $heading-font;
+	margin-top: 100px;
+
+	> div:first-child {
+		margin-bottom: 30px;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	nav {
+		ul {
+			li {
+
+				font-family: $heading-font;
+
+				&:first-child {
+					margin-bottom: 12px;
+					text-transform: uppercase;
+					a {
+						////font-weight: 500;
+					}
+				}
+
+				a {
+					font-size: 15px;
+				}
+			}
+		}
+	}
+}

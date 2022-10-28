@@ -1,0 +1,112 @@
+// Post
+
+.single-post {
+    &.post-author-hide {
+        .post-author {
+            display: none;
+        }
+    }
+
+    &.post-author-bio-hide {
+        .post-author-bio {
+            display: none;
+        }
+    }
+
+    article {
+        max-width: 778px;
+        margin: 0 auto;
+
+        padding-top: 40px;
+
+        .read {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.875rem;
+            font-size: 1rem;
+            line-height: 1.1875;
+            color: $blue;
+            span {
+                color: $grey-4;
+                padding-left: 9px;
+                font-family: $heading-font;
+                ////font-weight: 500;
+            }
+        }
+        .entry-title {
+            color: $grey-1;
+            font-size: 1.875rem;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .post-author {
+            margin-top: 40px;
+
+            > .gb-inside-container {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+
+                figure {
+                    flex: 0 0 auto;
+                    margin-right: 15px;
+                }
+
+                .gb-headline {
+                    color: $grey-1;
+                    font-family: $heading-font;
+                    font-size: 19px;
+                    letter-spacing: 0.34px;
+                    line-height: 29px;
+                    ////font-weight: 500;
+                }
+            }
+        }
+
+        .post-author-bio {
+            margin-top: 60px;
+
+            figure {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    .featured-image {
+        margin: 40px auto 0 !important;
+    }
+
+    .cat-links {
+        display: none;
+    }
+
+    .post-navigation {
+
+        margin-top: 30px;
+
+        a {
+            font-size: 18px;
+        }
+    }
+
+    .related-posts {
+        max-width: 996px;
+        margin: 100px auto 0;
+
+        h2 {
+            max-width: 778px;
+            margin: 0 auto 30px;
+        }
+    }
+
+    .social-share {
+        margin-top: 40px;
+        text-align: center;
+
+        .a2a_kit {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}

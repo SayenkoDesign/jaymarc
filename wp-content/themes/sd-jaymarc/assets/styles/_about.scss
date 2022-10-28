@@ -1,0 +1,27 @@
+// About
+
+.page-template-about {
+
+	.about-hero-content {
+		> .gb-inside-container {
+			max-width: 600px;
+			margin-left: auto;
+		}
+	}
+
+	.image-line {
+		figure {
+			position: relative;
+
+			&:after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				height: 30%;
+				width: 2px;
+				background-color: $black;
+				left: 8%;
+			}
+		}
+	}
+}

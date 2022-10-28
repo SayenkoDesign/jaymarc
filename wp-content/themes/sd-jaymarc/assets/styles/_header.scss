@@ -1,0 +1,103 @@
+// Header
+
+@media screen and (min-width: 1100px) {
+    /* This code makes the GeneratePress Menu sticky. */
+
+    body {
+        padding-top: 100px!important;
+    }
+
+
+   body .site-header {
+        background-color: $white;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999;
+    }
+
+    .admin-bar .site-header {
+        top: 32px; /* fix the offset for admin bar when logged in */
+    }
+
+     
+    .site-content {
+        padding-top: 0;
+    }
+}
+
+
+
+.site-header {
+    box-shadow: 0 11px 12px 0 rgba(0, 0, 0, 0.1);
+
+    .inside-header {
+        position: relative;
+    }
+
+    @media (max-width: 1099px) {
+        .inside-header {
+            justify-content: center;
+            padding: 20px 0;
+
+            .header-image {
+                max-width: 166px;
+            }
+
+            .gp-icon {
+                width: 36px;
+            }
+
+            .gp-icon svg {
+                width: auto;
+                height: auto;
+            }
+        }
+
+        .main-navigation.toggled .main-nav > ul {
+            display: flex;
+        }
+
+        #site-navigation {
+            flex-basis: auto;
+            margin-top: 0;
+        }
+
+        .menu {
+            > li {
+                order: 1;
+
+                &:last-child {
+                    order: 0;
+                }
+
+                > a {
+                    background-color: $grey-1;
+                    color: $white!important;
+
+                    svg {
+                        width: 24px!important;
+                        top: 6px;
+                    }
+                }
+            }
+        }
+    }
+
+    .mobile-phone {
+        color: $blue;
+        margin-left: 20px;
+        margin-right: auto;
+
+        
+        
+        a {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (min-width: 1100px) {
+            display: none;
+        }
+    }
+}

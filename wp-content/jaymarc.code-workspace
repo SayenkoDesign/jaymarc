@@ -1,0 +1,31 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.bracketPairColorization.enabled": true,
+		"intelephense.files.exclude": [
+			"**/.git/**",
+			"**/.svn/**",
+			"**/.hg/**",
+			"**/CVS/**",
+			"**/.DS_Store/**",
+			"**/node_modules/**",
+			"**/bower_components/**",
+			"**/vendor/**/{Tests,tests}/**",
+			"**/.history/**",
+			"**/vendor/**/vendor/**",
+			"**/mu-plugins/**",
+			"**/smush-webp/**",
+			"**/advanced-cache.php"
+		],
+		"files.exclude": {
+			"**/advanced-cache.php": true,
+			"**/mu-plugins": true,
+			"**/smush-webp/**": true,
+			"**/themes/twenty**": true
+		}
+	}
+}

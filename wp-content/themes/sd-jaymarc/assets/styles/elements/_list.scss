@@ -1,0 +1,50 @@
+// List
+
+body {
+
+	ul {
+		&.orange,
+		&.yellow,
+		&.blue {
+			list-style-type: none;
+			margin-left: 0;
+
+			li {
+				padding-left: 36px;
+				position: relative;
+
+				&:before {
+					content: '';
+					position: absolute;
+					width: 24px;
+					height: 24px;
+					top: 50%;
+					left: 0;
+					transform: translateY(-50%);
+				}
+			}
+		}
+		
+		&.orange li:before {
+			background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m1.5 13.5 6 6 15-15' stroke='%23" + str-slice('#{$orange}', 2) + "' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+		}
+
+		&.yellow li:before {
+			background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m1.5 13.5 6 6 15-15' stroke='%23" + str-slice('#{$yellow}', 2) + "' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+		}
+
+		&.blue li:before {
+			background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m1.5 13.5 6 6 15-15' stroke='%23" + str-slice('#{$blue}', 2) + "' stroke-width='2' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+		}
+	}
+
+	.product-list {
+		max-width: 280px;
+
+		li {
+			font-size: 1.125rem;
+			line-height: 32px;
+			margin-bottom: 16px;
+		}
+	}
+}

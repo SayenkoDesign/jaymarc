@@ -1,0 +1,104 @@
+// Styles
+@import 'assets/styles/settings';
+
+.wp-admin .wp-block-acf-home-hero {
+	max-width: none;
+}
+
+.acf-block-home-hero {
+	background-color: $grey-5;
+	position: relative;
+	min-height: 100px;
+
+	.stack {
+		display: grid;
+	}
+
+	.wrap,
+	picture {
+		grid-area: 1 / 1 / 2 / 2;
+	}
+
+	.wrap {
+		background: linear-gradient(270deg, rgba(0,0,0,0) 0%, #000000 100%);
+		position: relative;
+
+		&:after {
+			content: "";
+			top: 10px;
+			left: 10px;
+			position: absolute;
+			width: calc(100% - 40px);
+			height: calc(100% - 40px);
+			display: block;
+			border: 2px solid $white;
+		}
+		
+		.grid-container {
+			display: flex;
+			align-items: center;
+			height: 100%;
+			position: relative;
+			z-index: 3;
+		}
+		
+	}
+
+	img {
+		display: block;
+
+		display: block;
+		object-fit: cover;
+
+		@media only screen and (min-width: 1024px) {
+			//height: 600px;
+		}
+		@media only screen and (min-width: 1440px) {
+			height: 800px;
+		}
+
+	}
+
+	header {
+
+		max-width: 500px;
+		padding-top: 40px;
+		padding-bottom: 40px;
+
+		@media only screen and (max-width: $grid-container-width) {
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+
+		> * {
+			color: $white;
+		}
+
+		.pulse {
+			margin-bottom: 15px;
+		}
+
+		p {
+			font-size: 1.1875rem;
+			letter-spacing: 0.02125em;
+			line-height: 1.52631579;
+			//font-weight: 500;
+		}
+
+		h1 span {
+			display: block;
+		}
+
+
+		@media only screen and (min-width: 768px) {
+			h1 {
+				font-size: 2.75rem;
+
+				span {
+					font-size: 2.1875rem;
+				}
+			}
+		}
+	}
+
+}

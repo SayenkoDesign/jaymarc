@@ -1,0 +1,59 @@
+// Styles
+@import 'assets/styles/settings';
+
+
+
+.acf-block-about-giving-back {
+	
+	img {
+		width: 100%;
+	}
+
+	.image {
+		&__wrap {
+			position: relative;
+
+			&:after {
+				content: '';
+				position: absolute;
+				top: -50px;
+				left: 50%;
+				transform: translatX(-50%);
+				height: 72px;
+				width: 2px;
+				background-color: $black;
+			}
+		}		
+	}
+
+	.content {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: -60px;
+
+		@media (min-width: 769px) {
+			margin-top: -160px;
+		}
+
+		&__wrap {
+			background-color: $white;
+			max-width: 500px;
+			border: 9px solid $white;	
+			position: relative;
+			z-index: 3;		
+		}
+
+		&__inner {
+			border: 2px solid $black;
+			position: relative;
+			z-index: 3;
+
+			padding: 30px;
+
+			@media (min-width: 768px) {
+				padding: 40px 50px;
+			}
+		}
+	}
+	
+}

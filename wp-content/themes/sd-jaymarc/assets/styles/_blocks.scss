@@ -1,0 +1,75 @@
+// Blocks
+
+[class*="acf-block"] {
+	.wrap {
+		max-width: 100%;
+	}
+}
+
+.inside-article [class*="acf-block"] {
+	.grid-container {
+		padding-right: 30px;
+    	padding-left: 30px;
+		@media (min-width: 769px) {
+			padding-right: 40px;
+    		padding-left: 40px;
+		}
+
+	}
+}
+
+.pulse {
+	display: block;
+	
+	width: 76px;
+	height: 76px;
+	border-radius: 50%;
+	text-decoration: none;
+
+	&:hover span {
+		background-color: $black;
+	}
+
+	span {
+		display: block;
+		position: relative;
+		width: 76px;
+		height: 76px;
+		border-radius: 50%;
+
+		&::after, &::before {
+			content: "";
+			display: block;
+			position: absolute;
+			border: 1px solid $white;
+			left: -20px;
+			right: -20px;
+			top: -20px;
+			bottom: -20px;
+			border-radius: 50%;
+			animation: pulse 1.5s linear infinite;
+			backface-visibility: hidden;
+			opacity: 0;
+		}
+	
+		&::after {
+			animation-delay: 0.5s;
+		}
+	}
+
+	
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.5);
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1.2);
+		opacity: 0;
+	}
+}

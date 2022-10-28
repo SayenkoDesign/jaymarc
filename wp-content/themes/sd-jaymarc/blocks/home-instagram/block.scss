@@ -1,0 +1,33 @@
+// Styles
+@import 'assets/styles/settings';
+
+
+.acf-block-home-instagram {
+
+	.wrap {
+		border: 2px solid $black;
+		padding: 30px;
+		min-height: 335px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.acf-icon {
+		text-align: center;
+	}
+
+	header {
+		text-align: center;
+
+		display: flex;
+		flex-direction: column-reverse;
+
+		
+	}
+
+	.acf-button-wrapper {
+		justify-content: center;
+	}
+	
+}

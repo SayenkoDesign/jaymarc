@@ -1,0 +1,197 @@
+// Styles
+@import "assets/styles/settings";
+
+// Avaible/ Custom Homes
+
+.acf-block-more-resources {
+    .grid {
+        display: grid;
+    }
+
+    .grid-item {
+        position: relative;
+        min-height: 385px;
+        margin-bottom: 30px;
+
+        @media only screen and (min-width: 769px) {
+
+            margin-bottom: 0;
+
+            .grid-item-wrapper {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .acf-button-wrapper {
+                a {
+                    border: none;
+                    padding: 0;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 3;
+                    }
+                }
+
+                span {
+                    border: 0;
+                    clip: rect(1px,1px,1px,1px);
+                    -webkit-clip-path: inset(50%);
+                    clip-path: inset(50%);
+                    height: 1px;
+                    margin: -1px;
+                    overflow: hidden;
+                    padding: 0;
+                    position: absolute;
+                    width: 1px;
+                    word-wrap: normal!important;
+                }
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .background-image {
+                &:after {
+                    content: "";
+                    top: 20px;
+                    left: 20px;
+                    position: absolute;
+                    width: calc(100% - 40px);
+                    height: calc(100% - 40px);
+                    display: block;
+                    border: 1px solid $white;
+                }
+            }
+        }
+
+        img {
+            display: block;
+        }
+    }
+
+    .acf-button-wrapper {
+        margin-top: 24px;
+    }
+
+    .grid-item-left {
+        background-color: rgba($black, 0.8);
+        .overlay {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 385px;
+        }
+    }
+
+    .grid-item-right {
+        background-color: rgba($blue, 0.8);
+    }
+
+    .text {
+        padding: 28px 40px 56px;
+        text-align: center;
+        position: relative;
+        z-index: 3;
+
+        h3 {
+            color: $white;
+            text-transform: uppercase;
+        }
+
+        p {
+            color: $white;
+            font-size: 1.1875rem;
+            letter-spacing: 0.34px;
+            line-height: 1.84210526;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 769px) {
+        .grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .background-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        figure {
+            display: flex;
+            position: relative;
+            height: 100%;
+
+            img {
+                @include object-cover;
+            }
+        }
+
+        .text {
+            padding: 28px;
+
+            @media only screen and (min-width: 1025px) {
+                padding: 56px 114px;
+            }
+
+            p {
+                color: $white;
+            }
+
+            .acf-button {
+                min-width: 270px;
+
+                &:hover {
+                    background-color: $white;
+                    color: $black;
+                }
+            }
+        }
+
+        .grid-item-left .grid-item-wrapper {
+            &:before {
+                content: "";
+                top: 20px;
+                left: 20px;
+                position: absolute;
+                width: calc(100% - 20px);
+                height: calc(100% - 40px);
+                display: block;
+                border-top: 1px solid $white;
+                border-bottom: 1px solid $white;
+                border-left: 1px solid $white;
+                z-index: 0;
+            }
+        }
+
+        .grid-item-right .grid-item-wrapper {
+            &:before {
+                content: "";
+                top: 20px;
+                right: 20px;
+                position: absolute;
+                width: calc(100% - 20px);
+                height: calc(100% - 40px);
+                display: block;
+                border-top: 1px solid $white;
+                border-bottom: 1px solid $white;
+                border-right: 1px solid $white;
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="62px" height="62px" viewBox="0 0 62 62" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Mockups---Pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Individual-Bio-Page" transform="translate(-131.000000, -1237.000000)">
+            <g id="Group-10-Copy-2" transform="translate(131.000000, 1237.000000)">
+                <g id="Group-3-Copy" transform="translate(31.000000, 31.000000) scale(-1, 1) translate(-31.000000, -31.000000) ">
+                    <circle id="Oval" stroke="currentColor" stroke-width="2" cx="31" cy="31" r="30"></circle>
+                    <path d="M28.4351891,43.5523188 C28.7177854,43.8454342 29.1048681,44 29.4767054,44 C29.8485427,44 30.2348817,43.8454342 30.5172921,43.5523188 L41.5686687,32.0828047 C41.8510792,31.7896893 42,31.4037573 42,31.002002 C42,30.6010186 41.8510792,30.2150866 41.5686687,29.9210064 L30.5172921,18.4516852 C29.93704,17.8494383 29.0154412,17.8494383 28.4351891,18.4516852 C27.854937,19.0539321 27.854937,20.0104647 28.4351891,20.6127116 L38.4450494,31.002002 L28.4351891,41.3912924 C27.8701823,41.9935393 27.8701823,42.9658951 28.4351891,43.5523188 Z" id="Fill-4" fill="currentColor"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

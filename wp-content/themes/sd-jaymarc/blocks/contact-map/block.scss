@@ -1,0 +1,93 @@
+// Styles
+@import "assets/styles/settings";
+
+.acf-block-contact-map {
+    display: block;
+    position: relative;
+    z-index: 2;
+
+    img {
+        display: block;
+    }
+
+    .map-canvas-wrap {
+        position: relative;
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid $black;
+        }
+    }
+
+    #map-canvas {
+        height: 600px;
+        width: 100%;
+        position: relative;
+    }
+
+    .map-info-box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+
+        &__wrapper {
+            background-color: $white;
+            padding: 60px 40px 40px 80px;
+            position: relative;
+            width: 100%;
+
+            @media (min-width: 1025px) {
+                min-width: 345px;
+                width: auto;
+            }
+
+            @media (min-width: 1366px) {
+                &:before {
+                    top: 100%;
+                    left: 80%;
+                    border: solid transparent;
+                    content: "";
+                    height: 0;
+                    width: 0;
+                    position: absolute;
+                    pointer-events: none;
+                    border-color: transparent;
+                    border-top-color: $white;
+                    border-width: 30px;
+                    margin-left: -30px;
+                }
+            }
+
+            &:after {
+                content: "";
+                position: absolute;
+                top: 16px;
+                left: 16px;
+                width: 100%;
+                height: 100%;
+                border-top: 2px solid $black;
+                border-left: 2px solid $black;
+            }
+        }
+
+        &__content {
+            position: relative;
+            z-index: 9;
+
+			h4 {
+				margin-bottom: 10px;
+			}
+
+			p {
+				color: $grey-5;
+				letter-spacing: 0.28px;
+			}
+        }
+    }
+}

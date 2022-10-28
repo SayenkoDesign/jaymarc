@@ -1,0 +1,93 @@
+// Careers
+
+.careers-hero {
+    p {
+        max-width: 600px;
+    }
+}
+
+.photo-stack {
+    .gb-inside-container {
+        margin-top: 100px;
+        position: relative;
+        padding-top: 60px;
+        padding-left: 180px;
+    }
+
+    figure {
+        &:first-child {
+            position: absolute;
+            top: -50px;
+            left: 0;
+            z-index: 3;
+            max-width: 308px;
+
+            img {
+                border: 7px solid $white;
+            }
+
+            @media (min-width: 1366px) {
+                left: -40px;
+            }
+        }
+
+        &:last-child {
+            img {
+                //max-width: 550px;
+                //float: right;
+            }
+        }
+    }
+}
+
+.careers-faq {
+   .img-bg {
+	> .gb-inside-container {
+        position: relative;
+
+        @media (min-width: 1366px) {
+
+			padding-right: 50px;
+
+            &:before {
+                content: '';
+				display: block;
+                height: 447px;
+                width: 476px;
+                background-color: $grey-7;
+				position: absolute;
+				top: -60%;
+				left: 50%;
+				margin-left: -60px;
+				transform: translateX(-50%);
+				z-index: -1;
+            }
+        }
+    }
+   }
+}
+
+.careers-benefits {
+	.gb-icon {
+		width: 132px;
+		height: 132px;
+		border: 2px solid $grey-5;
+		border-radius: 50%;
+		display: flex!important;
+		justify-content: center;
+		align-items: center;
+		margin: 0 auto 40px;
+	}
+}
+
+#apply {
+	.gform_wrapper {
+		padding: 30px;
+
+		.gform_title {
+			font-size: 1.375rem;
+			line-height: 1.18181818;
+			margin-bottom: 50px!important;
+		}
+	}
+}
