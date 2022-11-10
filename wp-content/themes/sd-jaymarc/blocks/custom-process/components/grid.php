@@ -7,7 +7,12 @@ if( have_rows('tabs', $post_id ) ):
 $rows = count( get_field( 'tabs', $post_id ) );
 
 $remainder = $rows % 4;
-$items = ( $remainder < 1 ) ? 4 : 3; 
+
+if( 0 == $rows % 5 ) {
+	$items = 5;
+} else {
+	$items = ( $remainder < 1 ) ? 4 : 3; 
+}
 ?>
 
 	<div class="slick-grid flex-grid-items-<?php echo $items;?>">

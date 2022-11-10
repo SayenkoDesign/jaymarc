@@ -83,5 +83,6 @@ array_map(function ($file) {
 	'lib/functions/template-tags.php',
 	'lib/functions/gravity-forms.php',
 	'lib/functions/team.php',
-	'lib/functions/post.php'
+	'lib/functions/post.php',
+	'lib/functions/videos.php'
 ]);

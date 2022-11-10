@@ -34,6 +34,53 @@ function mfields_set_default_object_terms( $post_id, $post ) {
 add_action( 'save_post', 'mfields_set_default_object_terms', 100, 2 );
 
 
+function get_homes_address( $post_id ) {
+    
+    $location = get_field('location', $post_id );
+    
+    if( $location ) {
+
+        // Loop over segments and construct HTML.
+        $address = '';
+        foreach( array('street_number', 'street_name', 'city', 'state_short', 'post_code' ) as $i => $k ) {
+            if( isset( $location[ $k ] ) ) {
+                $seperator = 'city' == $k ? ',' : '';
+                $br = 'city' == $k ? '<br />' : '';
+                $address .= sprintf( '%s<span class="segment-%s">%s</span>%s ', $br, $k, $location[ $k ], $seperator );
+            }
+        }
+
+        // Trim trailing comma.
+        $address = trim( $address, ', ' );
+
+        // Display HTML.
+        return sprintf( '<div class="address">%s</div>', $address );
+    }
+}
+
+function get_home_address( $post_id ) {
+    
+    $location = get_field('location', $post_id );
+    
+    if( $location ) {
+
+        // Loop over segments and construct HTML.
+        $address = '';
+        foreach( array('street_number', 'street_name', 'city', 'state_short', 'post_code' ) as $i => $k ) {
+            if( isset( $location[ $k ] ) ) {
+                $seperator = 'city' == $k ? ',' : '';
+                $break = 'street_name' == $k ? '<span class="break"></span>' : '';
+                $address .= sprintf( '<span class="segment-%s">%s%s</span>%s ', $k, $location[ $k ], $seperator, $break );
+            }
+        }
+
+        // Trim trailing comma.
+        $address = trim( $address, ', ' );
+
+        // Display HTML.
+        return sprintf( '<div class="address">%s</div>', $address );
+    }
+}
 
 
 function get_home_data() {
@@ -60,15 +107,15 @@ function get_home_data() {
     return $content;
 }
 
-function featured_home_days() {
+function featured_home_days( $post_id ) {
 
     ob_start();
 
-    if( have_rows('days', 'home_archive' ) ):
+    if( have_rows('days', $post_id ) ):
 
         echo ' <ul class="days">';
 
-        while( have_rows('days', 'home_archive') ) : the_row();
+        while( have_rows('days', $post_id ) ) : the_row();
     
             $day = get_sub_field('day');
             $time = get_sub_field('time');

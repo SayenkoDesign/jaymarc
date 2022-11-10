@@ -1,0 +1,135 @@
+// Testimonials
+
+.post-type-archive-video {
+    .site {
+        background-color: $grey-7;
+        max-width: 100%;
+    }
+
+    .site-content {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding-top: 100px !important;
+        padding-bottom: 100px !important;
+    }
+
+    .site-main {
+
+        .page-header {
+            @media screen and (min-width: 640px) {
+                display: grid;
+                grid-template-columns: 3fr 2fr;
+                gap: 40px;
+                align-items: center;
+            }
+        }
+
+        .facetwp-template {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+    }
+
+    article {
+        .inside-article {
+            background: #ffffff;
+        }
+
+        .post-content {
+            padding: 40px;
+        }
+
+        .entry-title {
+            a {
+                color: $blue;
+            }
+        }
+
+        .post-image {
+            float: none;
+            display: block;
+            margin-bottom: 0 !important;
+            position: relative;
+
+            a {
+                width: auto;
+                height: auto;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 3;
+                }
+
+                span {
+                    color: #fff;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 2;
+                }
+            }
+        }
+
+        .post-image {
+            
+            img {
+                aspect-ratio: 16/9;
+                object-fit: cover;
+                width: 100%;
+            }
+
+            @supports not (aspect-ratio: 1/1) {
+
+                .post-image {
+                    padding-top: 56.25%;
+                    height: 0;
+                    position: relative;
+                    overflow: hidden;
+
+                    img {
+                        position: absolute;
+                        transform: translate(-50%, -50%);
+                        left: 50%;
+                        top: 50%;
+                        width: 100%;
+                        max-width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* .testimonial-video-holder {
+    position: relative;
+
+    a {
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 3;
+        }
+
+        span {
+            color: #fff;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+    }
+}
+ */

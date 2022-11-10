@@ -55,3 +55,39 @@ body .filters {
 	width: 100%;
 	color: $grey-5;
 }
+
+
+
+.facetwp-type-pager {
+
+	.facetwp-pager {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.prev {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			transform: translateY(-50%);
+		}
+
+		.next {
+			position: absolute;
+			top: 50%;
+			right: 0;
+			transform: translateY(-50%);
+		}
+
+		.facetwp-page {
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 1.125rem;
+
+			&.active {
+				color: $blue;
+			}
+		}
+	}
+}

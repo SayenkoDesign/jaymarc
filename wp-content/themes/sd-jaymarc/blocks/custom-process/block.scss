@@ -5,7 +5,7 @@
 .acf-block-custom-process {
 
 	> * {
-		max-width: 1300px;
+		max-width: 1024px;
 		margin-left: auto;
 		margin-right: auto;
 	}
@@ -53,11 +53,11 @@
 			}
 
 			&.flex-grid-items-4 > div {
-				width: calc(100% / 4);
+				width: calc(100% / 3);
 			}
 
 			&.flex-grid-items-5 > div {
-				width: calc(100% / 5);
+				width: calc(100% / 3);
 			}
 
 
@@ -70,6 +70,14 @@
 
 			> div {
 				padding: 60px 0 0;
+			}
+
+			&.flex-grid-items-4 > div {
+				width: calc(100% / 4);
+			}
+
+			&.flex-grid-items-5 > div {
+				width: calc(100% / 5);
 			}
 		}
 
@@ -95,8 +103,8 @@
 				}
 
 				border-radius: 50%;
-				width: 126px;
-				height: 126px;				
+				width: 130px;
+				height: 130px;				
 				display: grid;
 
 				> span {
