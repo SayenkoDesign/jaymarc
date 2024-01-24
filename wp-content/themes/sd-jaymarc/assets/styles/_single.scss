@@ -114,6 +114,16 @@
             right: -90px;
         }
     }
+
+    .post-navigation {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 30px;
+
+        .nav-next {
+            text-align: right;
+        }
+    }
 }
 
 .related-posts {

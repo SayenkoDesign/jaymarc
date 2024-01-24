@@ -33,17 +33,6 @@ function fwp_add_facet_labels()
 add_action('wp_head', 'fwp_add_facet_labels', 100);
 
 
-
-add_filter('facetwp_index_row', function ($params, $class) {
-    if (in_array($params['facet_name'], ['beds', 'baths'])) {
-        $params['facet_value'] = floor($params['facet_value']);
-        $params['facet_display_value'] = sprintf('%d %s', floor($params['facet_display_value']), ucwords($params['facet_name']));
-    }
-    return $params;
-}, 10, 2);
-
-
-
 add_filter('facetwp_facet_render_args', function ($args) {
 
     $prev_icon = _s_get_icon(
@@ -76,3 +65,376 @@ add_filter('facetwp_facet_render_args', function ($args) {
 
     return $args;
 });
+
+add_filter('facetwp_index_row', function ($params, $class) {
+    if (in_array($params['facet_name'], ['beds', 'baths'])  && ! empty($params['facet_value']) ) {
+        $params['facet_value'] = floor($params['facet_value']);
+        $params['facet_display_value'] = sprintf('%d %s', floor($params['facet_display_value']), ucwords($params['facet_name']));
+    }
+    return $params;
+}, 10, 2);
+
+
+
+// Set map arguments
+add_filter('facetwp_map_init_args', function ($args) {
+    $args['init']['mapTypeId'] = 'roadmap'; // roadmap, satellite, hybrid, or terrain
+    $args['init']['mapTypeControl'] = false;
+    $args['init']['streetViewControl'] = false;
+    return $args;
+});
+
+// Add custom close icon for infoBox
+add_filter('facetwp_map_init_args', function ($settings) {
+    $settings['_close'] = sprintf('%sclose.svg', trailingslashit(THEME_IMG));
+    return $settings;
+}, 10, 1);
+
+// Add infoBox.js
+add_filter('facetwp_assets', function ($assets) {
+
+    if (array_key_exists('gmaps', $assets)) { // gmaps
+        $assets['infobox.js'] = get_url('scripts/infobox.js');
+    }
+    
+    return $assets;
+});
+
+// Remove ifoWindow and add infoBox
+add_action('wp_footer', function () { ?>
+    <script>
+        (function($) {
+            if ('object' !== typeof FWP) {
+                return;
+            }
+
+            $(document).on('facetwp-loaded', function() {
+                if ('undefined' === typeof FWP.settings.map || '' === FWP.settings.map) {
+                    return;
+                }
+
+                if (!FWP.loaded) {
+
+                    var markerOptions = {
+                        boxStyle: {
+                            width: '260px'
+                        },
+                        closeBoxMargin: 0,
+                        alignBottom: true,
+                        closeBoxURL: FWP.settings.map._close
+                    }
+
+                    FWP_MAP.InfoBox = new InfoBox(markerOptions);
+
+                    /* google.maps.event.addListener(FWP_MAP.map, 'click', function() {
+                        FWP_MAP.InfoBox.close();
+                    }); */
+
+                    google.maps.event.addListener(FWP_MAP.InfoBox, 'closeclick', function(event) {
+                        $('.location-button').removeClass('active');
+
+                        var markers = FWP_MAP.get_post_markers(FWP_MAP.InfoBox.post_id);
+                        console.log(FWP_MAP.InfoBox.post_id);
+                        $.each(markers, function(key, marker) {
+                            marker.setIcon("<?php printf('%smarker.svg', trailingslashit(THEME_IMG)) ?>");
+                        });
+
+                    });
+                }
+
+            });
+
+            $(function() {
+                FWP.hooks.addAction('facetwp_map/marker/click', function(marker) {
+
+                });
+
+                FWP.hooks.addAction('facetwp_map/marker/mouseover', function(marker) {
+
+                    google.maps.event.clearListeners(marker, 'spider_click');
+
+                    google.maps.event.addListener(marker, 'spider_click', function() {
+
+                        FWP_MAP.InfoBox.post_id = marker.post_id;
+
+                        if ('' != marker.content) {
+                            $('.location-button').removeClass('active');
+                            FWP_MAP.InfoBox.close();
+                            FWP_MAP.InfoBox.setContent(marker.content);
+                            FWP_MAP.InfoBox.setOptions({
+                                'pixelOffset': new google.maps.Size(-130, -40)
+                            });
+
+                            FWP_MAP.InfoBox.open(FWP_MAP.map, marker);
+                            $('.location-button[data-id="' + marker.post_id + '"]').addClass('active');
+
+                            marker.setIcon("<?php printf('%smarker-active.svg', trailingslashit(THEME_IMG)) ?>");
+                        }
+                    });
+                });
+            });
+
+            /**
+             * centerMap
+             *
+             * Centers the map showing all markers in view.
+             *
+             * @date    22/10/19
+             * @since   5.8.6
+             *
+             * @param   object The map instance.
+             * @return  void
+             */
+            function centerMap(map) {
+
+                // Create map boundaries from all map markers.
+                var bounds = new google.maps.LatLngBounds();
+                map.markers.forEach(function(marker) {
+                    bounds.extend({
+                        lat: marker.position.lat(),
+                        lng: marker.position.lng()
+                    });
+                });
+
+                // Case: Single marker.
+                if (map.markers.length == 1) {
+                    map.setCenter(bounds.getCenter());
+
+                    // Case: Multiple markers.
+                } else {
+                    map.fitBounds(bounds);
+                }
+            }
+
+
+            /**
+             * Do JS when clicking location in the sidebar
+             *  - https://gist.github.com/djrmom/4760abe263c3819385250351abc8fc42
+             * -------------------- */
+            $(document).on('click', '.location-button', function() {
+                $('.location-button').removeClass('active');
+                $(this).addClass('active');
+                var postid = $(this).attr('data-id');
+                var markers = FWP_MAP.get_post_markers(postid);
+
+                var map = FWP_MAP.map;
+
+                $.each(markers, function(key, marker) {
+
+                    FWP_MAP.InfoBox.post_id = marker.post_id;
+
+                    if ('' != marker.content) {
+                        FWP_MAP.InfoBox.close();
+                        FWP_MAP.InfoBox.setContent(marker.content);
+                        FWP_MAP.InfoBox.setOptions({
+                            'pixelOffset': new google.maps.Size(-130, -40)
+                        });
+                        FWP_MAP.InfoBox.open(FWP_MAP.map, marker);
+                    }
+
+                    var latLng = marker.getPosition();
+                    map.setCenter(latLng);
+
+                    marker.setIcon("<?php printf('%smarker-active.svg', trailingslashit(THEME_IMG)) ?>");
+
+
+                });
+
+            });
+
+        })(jQuery)
+    </script>
+<?php }, 100);
+
+
+// Set Map Pin - we can even set cusotm pins per organization
+add_filter('facetwp_map_marker_args', function ($args, $post_id) {
+    $args['icon'] = array(
+        'url' => get_url('images/marker.svg'),
+        'scaledSize' => array(
+            'width' => 34,
+            'height' => 48
+        )
+    );
+
+    return $args;
+}, 10, 2);
+
+
+// Add Snazzy Maps
+add_filter('facetwp_map_init_args', function ($settings) {
+    $styles = '[
+            {
+                "featureType": "administrative",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.country",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.province",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.locality",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "on"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "visibility": "on"
+                    },
+                    {
+                        "color": "#e3e3e3"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.natural",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "color": "#cccccc"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.line",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.line",
+                "elementType": "labels.text",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.station.airport",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.station.airport",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#FFFFFF"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            }
+    ]';
+    $settings['init']['styles'] = json_decode($styles);
+    return $settings;
+});
+
+// hide counts from all dropdowns
+//add_filter( 'facetwp_facet_dropdown_show_counts', '__return_false' );
+
+
+/* add_filter( 'facetwp_query_args', function( $query_args, $class ) {
+    $facet_name = 'status'; // Replace 'my_facet_name' with the name of your facet
+    if ( isset( $class->facets[ $facet_name ] ) ) { // If this facet is present
+        error_log('present');
+        $selected = $class->facets[ $facet_name ]['selected_values'];
+        if ( empty( $selected ) ) { // If this facet has any selected choices
+        $query_args['tax_query'] = array(
+            array(
+                'taxonomy' => 'home_type',
+                'field' => 'slug',
+                'terms' => [ 'sold' ],
+                'operator' => 'NOT IN',
+            )
+            );
+        }
+    }
+    return $query_args;
+}, 10, 2 ); */

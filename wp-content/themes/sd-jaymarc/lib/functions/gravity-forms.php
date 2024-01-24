@@ -1,6 +1,5 @@
 <?php
 // Gravity Forms
-
 function _s_get_dropdown_posts( $post_type = false ) {
     
     if( empty( $post_type ) || ! post_type_exists( $post_type ) ) {
@@ -39,28 +38,28 @@ function _s_get_dropdown_posts( $post_type = false ) {
 }
 
 
-function _s_gf_populate_dropdown( $form, $class ) {
-     
-    
-    
+add_filter( 'gform_form_post_get_meta_3', 'populate_homes' );
+function populate_homes( $form ) {
+
+    if( is_admin() ) {
+        return $form;
+    }
+ 
     foreach ( $form['fields'] as &$field ) {
          
-        if ( strpos( $field->cssClass, $class ) === false ) {
+        $field_id = 6;
+        if ( $field->id != $field_id ) {
             continue;
         }
-                
-        $post_type = str_replace( 'populate_', '', $class );
-        
-        $rows = _s_get_dropdown_posts( $post_type );
+                        
+        $rows = _s_get_dropdown_posts( 'home' );
          
         $choices = array();
  
-        foreach ( $rows as $row ) {
-            $choices[] = array( 'text' => $row, 'value' => $row );
+        foreach ( $rows as $id => $title ) {
+            $choices[] = array( 'text' => $title, 'value' => $id );
         }
  
-        // update 'Select a Post' to whatever you'd like the instructive option to be
-        // $field->placeholder = 'Select a Location';
         $field->choices = $choices;
  
     }
@@ -68,33 +67,62 @@ function _s_gf_populate_dropdown( $form, $class ) {
     return $form;
 }
 
-// $('#fund option:contains(' + splitGift + ')').attr("selected", true);
 
-function _s_gf_populate_jobs( $form ) {
-    return _s_gf_populate_dropdown( $form, 'populate_job' );
+add_filter( 'gform_form_post_get_meta_4', 'populate_plan' );
+function populate_plan( $form ) {
+
+    if( is_admin() ) {
+        return $form;
+    }
+ 
+    foreach ( $form['fields'] as &$field ) {
+         
+        $field_id = 6;
+        if ( $field->id != $field_id ) {
+            continue;
+        }
+                        
+        $rows = _s_get_dropdown_posts( 'plan' );
+         
+        $choices = array();
+ 
+        foreach ( $rows as $id => $title ) {
+            $choices[] = array( 'text' => $title, 'value' => $id );
+        }
+ 
+        $field->choices = $choices;
+ 
+    }
+ 
+    return $form;
 }
 
-add_filter( 'gform_pre_render', '_s_gf_populate_jobs' );
-add_filter( 'gform_pre_validation', '_s_gf_populate_jobs' );
-add_filter( 'gform_pre_submission_filter', '_s_gf_populate_jobs' );
-add_filter( 'gform_admin_pre_render', '_s_gf_populate_jobs' );
 
+add_filter( 'gform_form_post_get_meta_2', 'populate_job' );
+function populate_job( $form ) {
 
-function _s_gf_populate_homes( $form ) {
-    return _s_gf_populate_dropdown( $form, 'populate_home' );
+    if( is_admin() ) {
+        return $form;
+    }
+ 
+    foreach ( $form['fields'] as &$field ) {
+         
+        $field_id = 6;
+        if ( $field->id != $field_id ) {
+            continue;
+        }
+                        
+        $rows = _s_get_dropdown_posts( 'job' );
+         
+        $choices = array();
+ 
+        foreach ( $rows as $id => $title ) {
+            $choices[] = array( 'text' => $title, 'value' => $id );
+        }
+ 
+        $field->choices = $choices;
+ 
+    }
+ 
+    return $form;
 }
-
-add_filter( 'gform_pre_render', '_s_gf_populate_homes' );
-add_filter( 'gform_pre_validation', '_s_gf_populate_homes' );
-add_filter( 'gform_pre_submission_filter', '_s_gf_populate_homes' );
-add_filter( 'gform_admin_pre_render', '_s_gf_populate_homes' );
-
-
-function _s_gf_populate_plans( $form ) {
-    return _s_gf_populate_dropdown( $form, 'populate_plan' );
-}
-
-add_filter( 'gform_pre_render', '_s_gf_populate_plans' );
-add_filter( 'gform_pre_validation', '_s_gf_populate_plans' );
-add_filter( 'gform_pre_submission_filter', '_s_gf_populate_plans' );
-add_filter( 'gform_admin_pre_render', '_s_gf_populate_plans' );

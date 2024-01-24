@@ -22,13 +22,10 @@ $icon = _s_get_icon(
 
 
 		<?php
-		printf('<div class="filter filter--large">%s</div>', facetwp_display('facet', 'status'));
+		printf('<div class="filter">%s</div>', facetwp_display('facet', 'portfolio'));
 		printf('<div class="filter">%s</div>', facetwp_display('facet', 'area'));
 		printf('<div class="filter">%s</div>', facetwp_display('facet', 'style'));
-		printf('<div class="filter">%s</div>', facetwp_display('facet', 'beds'));
-		printf('<div class="filter">%s</div>', facetwp_display('facet', 'sqft'));
-		printf('<div class="filter">%s</div>', facetwp_display('facet', 'price'));
-		printf('<div class="filter">%s</div>', facetwp_display('facet', 'baths'));
+		
 		?>
 		<div class="acf-button-wrapper"><a class="acf-button reversed" href="javascript:;" onclick="FWP.reset()">Clear</a></div>
 

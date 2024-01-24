@@ -18,7 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php
 			$title = get_the_title();
 			if( ! empty( _s_get_primary_term( 'home_type' ) ) ) {
-				$title = _s_get_primary_term( 'home_type' )->name;
+				//$title = _s_get_primary_term( 'home_type' )->name;
+				$title = 'Available Homes';
 			}
 			printf( '<div class="h1">%s</div>', $title );
 

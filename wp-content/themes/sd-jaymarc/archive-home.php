@@ -9,6 +9,44 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+add_filter('generate_show_post_navigation', '__return_false');
+
+// Filter the marker array (can be used to add custom values)
+add_filter('facetwp_map_marker_args', function ($args, $post_id) {
+
+    $title = _s_format_string(get_the_title($post_id), 'h3', ['class' => 'title']);
+
+    $address = get_home_address($post_id);
+
+    $area = _s_get_primary_term('area', $post_id );
+    if( ! empty( $area ) ) {
+        $area = sprintf( '<h4>%s</h4>', $area->name );
+    }
+
+    $learn_more = sprintf(
+        '<div class="acf-button-wrapper"><a class="acf-button blue reversed" href="%s">%s</a></div>',
+        get_permalink($post_id),
+        __('View Details')
+    );
+
+
+
+
+    $content = sprintf(
+        '<div class="info-box">
+                <div class="info-box-top"></div>
+                <div class="info-box-middle">%s%s%s</div>
+                <div class="info-box-bottom"></div>
+                </div>',
+        $title,
+        $address,
+        $learn_more
+    );
+
+    $args['content'] = $content;
+
+    return $args;
+}, 10, 2);
 
 get_header(); ?>
 
@@ -22,18 +60,34 @@ get_header(); ?>
 			 */
 			do_action( 'generate_before_main_content' );
 
+			/**
+			 * generate_archive_title hook.
+			 *
+			 * @since 0.1
+			 *
+			 * @hooked generate_archive_title - 10
+			 */
+			do_action( 'generate_archive_title' );
+
+			get_template_part( 'template-parts/home', 'share' );
+
+			// old how
+
+			get_template_part( 'template-parts/home', 'featured' );
+			
+			get_template_part( 'template-parts/home', 'filters' );
+
+			echo '<div class="locations">';
+
+			echo '<div class="locations-wrap">';
+
+			echo '<div class="facetwp-template">';
+
 			if ( generate_has_default_loop() ) {
 				
 				if ( have_posts() ) :
 
-					/**
-					 * generate_archive_title hook.
-					 *
-					 * @since 0.1
-					 *
-					 * @hooked generate_archive_title - 10
-					 */
-					do_action( 'generate_archive_title' );
+					
 
 					/**
 					 * generate_before_loop hook.
@@ -43,17 +97,7 @@ get_header(); ?>
 					do_action( 'generate_before_loop', 'archive' );
 
 
-					get_template_part( 'template-parts/home', 'share' );
-
-					get_template_part( 'template-parts/home', 'how' );
-
-					get_template_part( 'template-parts/home', 'featured' );
 					
-					get_template_part( 'template-parts/home', 'filters' );
-
-					echo '<div class="locations">';
-
-					echo '<div class="facetwp-template">';
 
 					while ( have_posts() ) :
 
@@ -63,13 +107,7 @@ get_header(); ?>
 
 					endwhile;
 
-					echo '</div>';
-
-					echo '<div class="map">
-					<div id="acf-map" class="google-map" aria-hidden="true"></div>
-				</div>';
-
-					echo '</div>';
+					
 
 					/**
 					 * generate_after_loop hook.
@@ -86,6 +124,22 @@ get_header(); ?>
 
 				
 			}
+
+			echo '</div>';
+
+			echo facetwp_display('facet', 'pager_');
+
+			echo '</div>';
+
+			echo '<div class="map">';
+
+			echo facetwp_display('facet', 'map');
+
+			echo '</div>';
+
+			echo '</div>';
+
+			get_template_part( 'template-parts/home', 'how' );
 
 			/**
 			 * generate_after_main_content hook.

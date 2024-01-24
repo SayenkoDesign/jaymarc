@@ -15,16 +15,24 @@ else :
 <div class="grid-container">
 	
 		<?php
+
+		$locations = get_field('locations'); 
+
 		$args = array(
 			'post_type' => 'location',
 			'order' => 'ASC',
 			'orderby' => 'title',
 			'posts_per_page' => -1,
 			'no_found_rows' => true,
-			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false,
-			'fields' => 'ids'
 		);
+
+		if (!empty($locations)) {
+			$args['orderby'] = 'post__in';
+			$args['post__in'] = $locations;
+			$args['posts_per_page'] = count($locations);
+		}
+	
+	
 		
 		// Use $loop, a custom variable we made up, so it doesn't overwrite anything
 		$loop = new WP_Query($args);

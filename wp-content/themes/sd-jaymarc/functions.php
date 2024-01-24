@@ -78,7 +78,6 @@ array_map(function ($file) {
 	'lib/functions/homes.php',
 	'lib/functions/redirects.php',
 	'lib/functions/facetwp.php',
-	'lib/functions/portfolio.php',
 	'lib/functions/plans.php',
 	'lib/functions/template-tags.php',
 	'lib/functions/gravity-forms.php',

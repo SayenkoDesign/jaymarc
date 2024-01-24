@@ -131,7 +131,7 @@ if (!defined('ABSPATH')) {
 				$status = _s_get_primary_term('home_type');
 
 				if( ! empty( $status ) ) {
-					$out .= sprintf('<li><strong>status:</strong> %s</li>', $status->name );
+					$out .= sprintf('<li><strong>Status:</strong> %s</li>', $status->name );
 				}
 
 				if( ! empty( $out ) ) {

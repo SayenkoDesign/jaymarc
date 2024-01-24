@@ -2,6 +2,10 @@
 
 .post-type-archive-home {
 
+    .facetwp-map-filtering {
+        display: none;
+    }
+
     .site {
         max-width: 100%;
 
@@ -408,7 +412,7 @@
 		box-shadow: 0 11px 12px 0 rgb(0 0 0 / 10%);
 		margin-bottom: 0.5rem;
 
-        &.list-focus {
+        &.active {
             position: relative;
 
             &:after {
@@ -475,11 +479,12 @@
                 display: inline-block;
                 padding-right: 34px;
                 position: relative;
+                font-size: 0.875rem;
 
                 svg {
                     position: absolute;
                     top: 50%;
-                    right: 0;
+                    right: -10px;
                     transform: translateY(-50%);
                 }
             }
@@ -498,8 +503,8 @@
                 }
 
                 > * {
-                    padding-left: 30px;
-                    padding-right: 30px;
+                    padding-left: 20px;
+                    padding-right: 20px;
                 }
             }
         }
@@ -534,6 +539,11 @@
         .acf-button-wrapper {
             padding: 20px 30px 20px;
         }
+    }
+
+    .facetwp-type-pager {
+        margin-top: 60px;
+        margin-bottom: 30px;
     }
 
     .map {

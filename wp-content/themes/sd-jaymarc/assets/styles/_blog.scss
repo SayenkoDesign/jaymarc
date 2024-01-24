@@ -268,6 +268,15 @@
 			margin-bottom: 30px;
 		}
 
+		.entry-meta {
+            display: none;
+        }
+
+		.register-date {
+			order: 2;
+			margin-top: -20px;
+		}
+
 		.read-more {
 			color: $blue;
 			font-family: $heading-font;

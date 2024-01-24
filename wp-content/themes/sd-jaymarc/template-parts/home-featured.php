@@ -11,6 +11,7 @@ $args = array(
 	'post_type' => 'home',
 	'orderby' => 'post__in',
 	'post__in' => $post_ids,
+	'facetwp' => false,
 );
 
 $icon = _s_get_icon(

@@ -22,10 +22,7 @@ else :
 		'post_type' => 'job',
 		'order' => 'ASC',
 		'posts_per_page' => -1,
-		'no_found_rows' => true,
-		'update_post_meta_cache' => false,
-		'update_post_term_cache' => false,
-		'fields' => 'ids'
+		'no_found_rows' => true
 	);
 
 	if (!empty($post_ids)) {

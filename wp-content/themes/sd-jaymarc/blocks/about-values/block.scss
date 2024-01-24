@@ -4,9 +4,13 @@
 
 .acf-block-about-values {
 
+	padding-bottom: 30px;
+
 	.wrap {
-		max-width: 620px;
+		max-width: 680px;
 		margin: 0 auto;
+		padding: 30px;
+		border: 1px solid $black;
 	}
 
 	.title-arrows {

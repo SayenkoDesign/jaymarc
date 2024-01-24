@@ -16,7 +16,7 @@ add_filter( 'get_the_archive_title' , function( $title ) {
  *
  * @license   GPLv2
  */
-function mfields_set_default_object_terms( $post_id, $post ) {
+function jm_set_default_object_terms( $post_id, $post ) {
     if ( 'publish' === $post->post_status ) {
         $defaults = array(
             'area' => array( 'bellevue' ),
@@ -31,7 +31,7 @@ function mfields_set_default_object_terms( $post_id, $post ) {
         }
     }
 }
-add_action( 'save_post', 'mfields_set_default_object_terms', 100, 2 );
+add_action( 'save_post', 'jm_set_default_object_terms', 100, 2 );
 
 
 function get_homes_address( $post_id ) {

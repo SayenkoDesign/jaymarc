@@ -1,11 +1,11 @@
 // Styles
 @import 'assets/styles/settings';
 
-.wp-admin .wp-block-acf-home-hero {
+.wp-admin .acf-block-sell-homes-hero {
 	max-width: none;
 }
 
-.acf-block-custom-homes-hero {
+.acf-block-sell-homes-hero {
 	background-color: $grey-5;
 	
 	
@@ -13,6 +13,10 @@
 	.wrap {
 		min-height: 300px;
 		position: relative;
+
+		.grid-container {
+			width: 100%;
+		}
 
 		&:after {
 			content: "";
@@ -27,8 +31,8 @@
 
 		display: flex;
 		height: 100%;
-		align-items: flex-end;
-		justify-content: center;
+		align-items: center;
+		justify-content: flex-start;
 
 		@media screen and (min-width: 768px) {
 			min-height: 500px;
@@ -72,14 +76,11 @@
 		header {
 			position: relative;
 			z-index: 3;
-			padding: 20px 20px 60px;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
+			padding: 20px 0 40px;
+
 
 			@media screen and (min-width: 768px) {
-				padding: 20px 40px 60px;
-				padding-bottom: 90px;
+				padding: 20px 0 40px;
 			}
 
 			.pulse {
@@ -94,6 +95,11 @@
 			h1 {
 				color: $white;
 				margin-bottom: 30px;
+			}
+
+			.hero-text {
+				color: $white;
+				max-width: 465px;
 			}
 
 			.acf-button {

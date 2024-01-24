@@ -1,49 +1,48 @@
 <?php
 // Portfolio 
 
-add_filter( 'option_generate_blog_settings', function( $settings ) {
-    if ( is_post_type_archive( 'portfolio' ) || is_tax( 'portfolio_filters' ) ) {
-        $settings['columns'] = '33';
+// Filter the marker array (can be used to add custom values)
+add_filter('facetwp_map_marker_args', function ($args, $post_id) {
+
+    $title      = _s_format_string(get_the_title($post_id), 'h3', ['class' => 'title']);
+
+    $address = get_home_address($post_id);
+
+    $area = _s_get_primary_term('area', $post_id );
+    if( ! empty( $area ) ) {
+        $area = sprintf( '<h4>%s</h4>', $area->name );
     }
 
-    return $settings;
-} );
+    $learn_more = sprintf(
+        '<div class="acf-button-wrapper"><a class="acf-button blue reversed" href="%s">%s</a></div>',
+        get_permalink($post_id),
+        __('View Details')
+    );
 
 
-add_filter( 'generate_blog_columns',function( $columns ) {
-    if ( is_post_type_archive( 'portfolio' ) || is_tax( 'portfolio_filters' ) ) {
-        return true;
+    $directions = '';
+    if (!empty($location['lat'])) {
+        $directions = sprintf(
+            '<span class="directions"><a href="https://www.google.com/maps/dir/?api=1&destination=%s,%s" target="_blank">%s [+]</a></span>',
+            $location['lat'],
+            $location['lng'],
+            __('Get Directions')
+        );
     }
 
-    return $columns;
-}, 15, 1 );
 
+    $content = sprintf(
+        '<div class="info-box">
+                <div class="info-box-top"></div>
+                <div class="info-box-middle">%s%s%s</div>
+                <div class="info-box-bottom"></div>
+                </div>',
+        $title,
+        $area,
+        $learn_more
+    );
 
-add_filter( 'generate_blog_masonry',function( $masonry ) {
-    if ( is_post_type_archive( 'portfolio' ) || is_tax( 'portfolio_filters' ) ) {
-        return true;
-    }
+    $args['content'] = $content;
 
-    return $masonry;
-}, 15, 1 );
-
-
-/* add_filter('post_class', 'set_row_post_class', 10,3);
-function set_row_post_class($classes, $class, $post_id){
-    if ( is_post_type_archive( 'portfolio' ) || is_tax( 'portfolio_filters' ) ) {
-
-		$aspect_ratio = strtolower( get_field('aspect_ratio') );
-
-		if( 'wide' == $aspect_ratio ) {
-			$classes = str_replace('grid-33', 'grid-66', $classes );
-		}
-
-		if( 'tall' == $aspect_ratio ) {
-			$classes[] = 'grid-tall';
-		}
-
-		
-	}
- 
-    return $classes;
-} */
+    return $args;
+}, 10, 2);
