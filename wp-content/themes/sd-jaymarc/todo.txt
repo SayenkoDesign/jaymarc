@@ -1,9 +1,141 @@
 TO DO:
 
+Change orderby for Homes
+
+- set oderby to "home_type" under CPT settings
+- change order of terms? under Taxonomy settings
+
+https://jaymarcstg.wpenginepowered.com/wp-admin/post.php?post=29&action=edit
+
+update Status term order: APUPS
+
+Add ACF field
+
+- Sync all local ACF fields so they can be pushed with theme, thne go in and sync them on live
+
+- Summary https://jaymarcstg.wpenginepowered.com/wp-admin/post.php?post=476&action=edit
 
 
 
-BUGS:
+// Order by term name
 
-- clicking on map icons they stay blue, we need them to change color. 
-- clicking on map icon make it come forward?
+/* function orderby_tax_clauses( $clauses, $wp_query ) {
+    $orderby_arg = $wp_query->get('orderby');
+    if ( ! empty( $orderby_arg ) && substr_count( $orderby_arg, 'taxonomy.' ) ) {
+      global $wpdb;
+      $bytax = "GROUP_CONCAT({$wpdb->terms}.name ORDER BY name ASC)";
+      $array = explode( ' ', $orderby_arg ); 
+      if ( ! isset( $array[1] ) ) {
+        $array = array( $bytax, "{$wpdb->posts}.post_date" );
+        $taxonomy = str_replace( 'taxonomy.', '', $orderby_arg );
+      } else {
+        foreach ( $array as $i => $t ) {
+          if ( substr_count( $t, 'taxonomy.' ) )  {
+            $taxonomy = str_replace( 'taxonomy.', '', $t );
+            $array[$i] = $bytax;
+          } elseif ( $t === 'meta_value' || $t === 'meta_value_num' ) {
+            $cast = ( $t === 'meta_value_num' ) ? 'SIGNED' : 'CHAR';
+            $array[$i] = "CAST( {$wpdb->postmeta}.meta_value AS {$cast} )";
+          } else {
+            $array[$i] = "{$wpdb->posts}.{$t}";
+          }
+        }
+      }
+      $order = strtoupper( $wp_query->get('order') ) === 'ASC' ? ' ASC' : ' DESC';
+      $ot = strtoupper( $wp_query->get('ordertax') );
+      $ordertax = $ot === 'DESC' || $ot === 'ASC' ? " $ot" : " $order";
+      $clauses['orderby'] = implode(', ',
+        array_map( function($a) use ( $ordertax, $order ) {
+          return ( strpos($a, 'GROUP_CONCAT') === 0 ) ? $a . $ordertax : $a . $order;
+        }, $array )
+      );
+      $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->term_relationships} ";
+      $clauses['join'] .= "ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id";
+      $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->term_taxonomy} ";
+      $clauses['join'] .= "USING (term_taxonomy_id)";
+      $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->terms} USING (term_id)";
+      $clauses['groupby'] = "object_id";
+      $clauses['where'] .= " AND (taxonomy = '{$taxonomy}' OR taxonomy IS NULL)";
+    }
+    return $clauses;
+  } */
+
+  // Order by term_id
+
+function orderby_tax_clauses( $clauses, $wp_query ) {
+    $orderby_arg = $wp_query->get('orderby');
+    if ( ! empty( $orderby_arg ) && substr_count( $orderby_arg, 'taxonomy.' ) ) {
+        global $wpdb;
+        $bytax = "GROUP_CONCAT({$wpdb->terms}.name ORDER BY {$wpdb->terms}.term_order ASC)";
+        $array = explode( ' ', $orderby_arg ); 
+        if ( ! isset( $array[1] ) ) {
+            $array = array( $bytax, "{$wpdb->posts}.post_date" );
+            $taxonomy = str_replace( 'taxonomy.', '', $orderby_arg );
+        } else {
+            foreach ( $array as $i => $t ) {
+                if ( substr_count( $t, 'taxonomy.' ) )  {
+                    $taxonomy = str_replace( 'taxonomy.', '', $t );
+                    $array[$i] = $bytax;
+                } elseif ( $t === 'meta_value' || $t === 'meta_value_num' ) {
+                    $cast = ( $t === 'meta_value_num' ) ? 'SIGNED' : 'CHAR';
+                    $array[$i] = "CAST( {$wpdb->postmeta}.meta_value AS {$cast} )";
+                } else {
+                    $array[$i] = "{$wpdb->posts}.{$t}";
+                }
+            }
+        }
+        $order = strtoupper( $wp_query->get('order') ) === 'ASC' ? ' ASC' : ' DESC';
+        $ot = strtoupper( $wp_query->get('ordertax') );
+        $ordertax = $ot === 'DESC' || $ot === 'ASC' ? " $ot" : " $order";
+        $clauses['orderby'] = implode(', ',
+            array_map( function($a) use ( $ordertax, $order ) {
+                return ( strpos($a, 'GROUP_CONCAT') === 0 ) ? $a . $ordertax : $a . $order;
+            }, $array )
+        );
+        $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->term_relationships} ";
+        $clauses['join'] .= "ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id";
+        $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->term_taxonomy} ";
+        $clauses['join'] .= "USING (term_taxonomy_id)";
+        $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->terms} USING (term_id)";
+        $clauses['groupby'] = "object_id";
+        $clauses['where'] .= " AND (taxonomy = '{$taxonomy}' OR taxonomy IS NULL)";
+    }
+    return $clauses;
+}
+
+add_filter('posts_clauses', 'orderby_tax_clauses', 10, 2);
+
+add_action('pre_get_posts', 'add_custom_orderby_to_home_query');
+
+  function add_custom_orderby_to_home_query($query) {
+      // Ensure you're targeting the main query on the frontend and specifically for the "home" post type
+      if ($query->is_main_query() && !is_admin() && $query->is_post_type_archive('home')) {
+          // Here you can specify the condition under which your custom ordering should be applied
+          // For demonstration, let's say we always want to apply this on the "home" post type archive
+
+          $query->set('meta_query', array(
+                'relation' => 'OR',
+                array(
+                    'key' => 'estimated_completion',
+                    'compare' => 'EXISTS'
+                ),
+                array(
+                    'key' => 'estimated_completion',
+                    'compare' => 'NOT EXISTS'
+                )
+            ));
+            $query->set('orderby', 'taxonomy.home_type meta_value');
+
+            $query->set('ordertax', 'ASC');
+
+            $query->set('order', 'ASC');
+
+          
+          
+          // Remove the filter after it's used to avoid affecting other queries
+          add_action('the_posts', function($posts) {
+              remove_filter('posts_clauses', 'orderby_tax_clauses', 10);
+              return $posts;
+          }, 10, 2);
+      }
+  }

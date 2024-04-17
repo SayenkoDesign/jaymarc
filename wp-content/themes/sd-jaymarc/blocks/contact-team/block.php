@@ -7,7 +7,7 @@
 	Keywords: jaymarc Contact Team
 	Mode: auto
 	Align: false
-	PostTypes: page
+	PostTypes: page gp_elements
 	SupportsAlign: false
 	SupportsMode: false
 	SupportsMultiple: true

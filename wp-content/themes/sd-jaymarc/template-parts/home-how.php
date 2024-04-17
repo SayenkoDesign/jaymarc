@@ -20,7 +20,7 @@ $appointment = _s_get_icon(
 );
 ?>
 <div class="how-to-tour">
-	<h2 class="h3">How to Tour</h2>
+	<h2>Tour Model Homes</h2>
 
 	<div class="grid">
 		<div class="open-house">

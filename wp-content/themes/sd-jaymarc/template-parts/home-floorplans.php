@@ -51,7 +51,7 @@ $data_slick = [
 
 		?>
 
-		<h2 class="border-bottom-center">Floor Plans + Elevation</h2>
+		<h2 class="border-bottom">Floor Plans</h2>
 
 		<div class="slick" data-slick="<?php echo esc_attr(json_encode($data_slick)); ?>">
 		<?php

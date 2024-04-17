@@ -1,6 +1,5 @@
 <?php
 // FacetWP
-
 add_filter('facetwp_preload_url_vars', function ($url_vars) {
     if ('about' == FWP()->helper->get_uri()) {
         if (empty($url_vars['department'])) {
@@ -136,7 +135,7 @@ add_action('wp_footer', function () { ?>
                         var markers = FWP_MAP.get_post_markers(FWP_MAP.InfoBox.post_id);
                         console.log(FWP_MAP.InfoBox.post_id);
                         $.each(markers, function(key, marker) {
-                            marker.setIcon("<?php printf('%smarker.svg', trailingslashit(THEME_IMG)) ?>");
+                            //marker.setIcon("<?php printf('%smarker.svg', trailingslashit(THEME_IMG)) ?>");
                         });
 
                     });
@@ -168,7 +167,7 @@ add_action('wp_footer', function () { ?>
                             FWP_MAP.InfoBox.open(FWP_MAP.map, marker);
                             $('.location-button[data-id="' + marker.post_id + '"]').addClass('active');
 
-                            marker.setIcon("<?php printf('%smarker-active.svg', trailingslashit(THEME_IMG)) ?>");
+                            //marker.setIcon("<?php printf('%smarker-active.svg', trailingslashit(THEME_IMG)) ?>");
                         }
                     });
                 });
@@ -211,7 +210,18 @@ add_action('wp_footer', function () { ?>
              * Do JS when clicking location in the sidebar
              *  - https://gist.github.com/djrmom/4760abe263c3819385250351abc8fc42
              * -------------------- */
-            $(document).on('click', '.location-button', function() {
+            $(document).on('click', '.location-button', function(event) {
+
+                /* console.log(e.target);
+
+                if (e.target.querySelector('.post-link')) return; */
+
+                if (event.target.closest('.post-link')) {
+                    // Perform your click event handling here
+                    console.log('Clicked, ignoring .ignore-click elements');
+                    return;
+                }
+
                 $('.location-button').removeClass('active');
                 $(this).addClass('active');
                 var postid = $(this).attr('data-id');
@@ -219,11 +229,18 @@ add_action('wp_footer', function () { ?>
 
                 var map = FWP_MAP.map;
 
+               
+
                 $.each(markers, function(key, marker) {
 
                     FWP_MAP.InfoBox.post_id = marker.post_id;
 
+                    console.log(marker);
+
                     if ('' != marker.content) {
+
+                        
+
                         FWP_MAP.InfoBox.close();
                         FWP_MAP.InfoBox.setContent(marker.content);
                         FWP_MAP.InfoBox.setOptions({
@@ -235,7 +252,7 @@ add_action('wp_footer', function () { ?>
                     var latLng = marker.getPosition();
                     map.setCenter(latLng);
 
-                    marker.setIcon("<?php printf('%smarker-active.svg', trailingslashit(THEME_IMG)) ?>");
+                    //marker.setIcon("<?php printf('%smarker-active.svg', trailingslashit(THEME_IMG)) ?>");
 
 
                 });
@@ -249,8 +266,28 @@ add_action('wp_footer', function () { ?>
 
 // Set Map Pin - we can even set cusotm pins per organization
 add_filter('facetwp_map_marker_args', function ($args, $post_id) {
+
+    $marker = get_url('images/marker.svg');
+
+    // get status
+    $terms = wp_get_post_terms($post_id, 'home_type');
+    if (!empty($terms)) {
+        $term = reset($terms);
+        $slug = $term->slug;
+
+        $status_marker = get_url(sprintf('images/marker-%s.svg', $slug ));
+
+        error_log($status_marker);
+
+        if(! empty($status_marker)) {
+            $marker = $status_marker;
+        }
+    }
+
+    
+
     $args['icon'] = array(
-        'url' => get_url('images/marker.svg'),
+        'url' => $marker,
         'scaledSize' => array(
             'width' => 34,
             'height' => 48
@@ -438,3 +475,104 @@ add_filter('facetwp_map_init_args', function ($settings) {
     }
     return $query_args;
 }, 10, 2 ); */
+
+
+
+// Filter the marker array (can be used to add custom values)
+add_filter('facetwp_map_marker_args', function ($args, $post_id) {
+
+	$post_type = get_post_type( $post_id );
+
+    if('home' !== $post_type ) {
+        return $args;
+    }
+
+    $title = _s_format_string(get_the_title($post_id), 'h3', ['class' => 'title']);
+
+	$image = sprintf( '%s',
+                    get_the_post_thumbnail( $post_id, 'thumbnail' ) 
+                ); 
+
+    $address = get_home_address($post_id);
+
+    $area = _s_get_primary_term('area', $post_id );
+    if( ! empty( $area ) ) {
+        $area = sprintf( '<h4>%s</h4>', $area->name );
+    }
+
+    $learn_more = sprintf(
+        '<div class="acf-button-wrapper"><a class="acf-button blue reversed" href="%s">%s</a></div>',
+        get_permalink($post_id),
+        __('View Details')
+    );
+
+    $content = sprintf(
+        '<div class="info-box">
+                <div class="info-box-top"></div>
+                <div class="info-box-middle">%s%s%s</div>
+                <div class="info-box-bottom"></div>
+                </div>',
+        $image,
+        $address,
+        $learn_more
+    );
+
+    $args['content'] = $content;
+
+    return $args;
+}, 10, 2);
+
+
+
+// Filter the marker array (can be used to add custom values)
+add_filter('facetwp_map_marker_args', function ($args, $post_id) {
+
+    $post_type = get_post_type( $post_id );
+
+    if('portfolio' !== $post_type ) {
+        return $args;
+    }
+    
+    
+    $title  = _s_format_string(get_the_title($post_id), 'h3', ['class' => 'title']);
+
+    $address = get_home_address($post_id);
+
+    $area = _s_get_primary_term('area', $post_id );
+    if( ! empty( $area ) ) {
+        $area = sprintf( '<h4>%s</h4>', $area->name );
+    }
+
+    $learn_more = sprintf(
+        '<div class="acf-button-wrapper"><a class="acf-button blue reversed" href="%s">%s</a></div>',
+        get_permalink($post_id),
+        __('View Details')
+    );
+
+
+    $directions = '';
+    if (!empty($location['lat'])) {
+        $directions = sprintf(
+            '<span class="directions"><a href="https://www.google.com/maps/dir/?api=1&destination=%s,%s" target="_blank">%s [+]</a></span>',
+            $location['lat'],
+            $location['lng'],
+            __('Get Directions')
+        );
+    }
+
+
+    $content = sprintf(
+        '<div class="info-box">
+                <div class="info-box-top"></div>
+                <div class="info-box-middle">%s%s%s</div>
+                <div class="info-box-bottom"></div>
+                </div>',
+        $title,
+        $area,
+        $learn_more
+    );
+
+    $args['content'] = $content;
+
+    return $args;
+}, 10, 2);

@@ -49,9 +49,10 @@
             margin-bottom: 30px;
             position: relative;
             z-index: 5;
+            text-transform: uppercase;
 
             @media (min-width: 768px) {
-                margin-bottom: -20px;
+                //margin-bottom: -20px;
             }
         }
 
@@ -284,7 +285,7 @@
         }
 
         .filters-wrap {
-            display: none;
+            //display: none;
 
             &.open {
                 display: block;
@@ -376,7 +377,7 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
     
-                height: 800px;
+                max-height: 800px;
                 padding-bottom: 30px;
                 
                 overflow: hidden;
@@ -584,7 +585,7 @@
         background-image: url(../images/info-box-middle.png);
         background-size: 100%;
         background-repeat: repeat-y;
-        padding: 30px 30px 20px 30px;
+        padding: 20px 30px 20px 30px;
         margin-top: -2px;
     }
 
@@ -605,9 +606,22 @@
         z-index: 3;
     }
 
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
 	h3 {
 		margin-bottom: 40px;
 	}
+
+    .address {
+        font-size: 15px;
+        letter-spacing: 0.26px;
+        line-height: 23px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
 
     .acf-button-wrapper {
         justify-content: center;

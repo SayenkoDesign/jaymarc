@@ -34,9 +34,9 @@ if ($loop->have_posts()) :
 		?>
 			<div class="grid__item">
 				<div class="grid__thumbnail">
-					<figure>
+				
 						<?php echo get_the_post_thumbnail(get_the_ID(), 'thumbnail'); ?>
-					</figure>
+				
 				</div>
 				<div class="grid__text">
 					<h3><?php echo get_the_title(get_the_ID()); ?></h3>

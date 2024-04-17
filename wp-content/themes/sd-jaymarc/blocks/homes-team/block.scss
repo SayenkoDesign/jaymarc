@@ -1,0 +1,52 @@
+// Styles
+@import 'assets/styles/settings';
+
+// @media only screen and (min-width: 768px) {
+
+.acf-block-homes-team {
+
+	.grid {
+		
+		@media only screen and (min-width: 768px) {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 320px));
+			gap: 20px;
+			justify-content: center;
+  			// align-content: center;
+		}
+
+		&__item {
+			position: relative;
+			text-align: center;
+
+			img {
+				border-radius: 50%;
+				width: 185px;
+				max-height: 185px;
+				object-fit: cover;
+				object-position: top;
+				margin-bottom: 10px;
+			}
+
+			p {
+				margin-bottom: 10px;
+			}
+
+			a {
+				text-align: left;
+				display: flex;
+				gap: 10px;
+				justify-content: center;
+				text-decoration: none;
+
+				&:hover {
+					color: $blue
+				}
+			}
+		}
+	}
+
+	h3 {
+		margin-bottom: 12px;
+	}
+}

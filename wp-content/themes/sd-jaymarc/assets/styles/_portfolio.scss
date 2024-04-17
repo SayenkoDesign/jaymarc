@@ -80,25 +80,6 @@
     .home-filters {
 
         margin-top: 18px;
-
-        .filters-wrap {
-            display: none;
-
-            &.open {
-                display: block;
-            }
-        }
-
-
-       button {
-            font-size: 16px;
-            margin-bottom: 50px;
-            min-width: 150px!important;
-
-            svg {
-                margin-right: 10px;
-            }
-       }
     }
     
 
@@ -406,7 +387,7 @@
     }
 }
 
-.infoBox {
+/* .infoBox {
     position: relative;
     text-align: center;
 
@@ -450,7 +431,7 @@
         font-size: 15px;
         letter-spacing: 0.26px;
         line-height: 23px;
-        margin-bottom: 40px;
+        margin-bottom: 15px;
     }
 
     .acf-button-wrapper {
@@ -466,3 +447,4 @@
 
 .infoBox {
 }
+ */

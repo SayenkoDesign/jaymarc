@@ -1,6 +1,57 @@
 <?php
 // Homes
 
+function kp_get_term_name( $taxonomy ) {
+	$terms = get_the_terms( get_the_ID(), $taxonomy );
+    
+	// Bail if no terms.
+	if ( ! $terms || is_wp_error( $terms ) ) {
+		return '&nbsp;';
+	}
+    
+	// Return the first term.
+	return $terms[0]->name;
+}
+
+
+
+function term_order_clauses( $clauses, $wp_query ) {
+    global $wpdb;
+
+    if ( isset( $wp_query->query_vars['orderby'] ) && 'home_type' == $wp_query->query_vars['orderby'] ) {
+
+        // Join terms related tables
+        $clauses['join'] .= "
+        LEFT OUTER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID={$wpdb->term_relationships}.object_id
+        LEFT OUTER JOIN {$wpdb->term_taxonomy} ON {$wpdb->term_taxonomy}.term_taxonomy_id={$wpdb->term_relationships}.term_taxonomy_id AND {$wpdb->term_taxonomy}.taxonomy='home_type'
+        LEFT OUTER JOIN {$wpdb->terms} USING (term_id)";
+
+        // Join postmeta to access completion date meta value
+        $clauses['join'] .= "
+        LEFT OUTER JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = 'estimated_completion'";
+
+        // Ensure only the latest completion date per post is considered
+        $clauses['fields'] .= ", MAX(CAST({$wpdb->postmeta}.meta_value AS DATE)) as post_completion_date";
+
+        // Set the group by to prevent duplicates and ensure aggregation works as expected
+        $clauses['groupby'] = "{$wpdb->posts}.ID";
+
+        // Modify the order by to prioritize term order, then by completion date
+        // Ordering first by the term order
+        $clauses['orderby'] = "GROUP_CONCAT({$wpdb->terms}.term_order ORDER BY {$wpdb->terms}.term_order ASC) ";
+        $clauses['orderby'] .= ( 'ASC' == strtoupper( $wp_query->get('order') ) ) ? 'ASC, ' : 'DESC, ';
+        
+        // Then by the completion date meta value
+        $clauses['orderby'] .= "post_completion_date ";
+        $clauses['orderby'] .= ( 'ASC' == strtoupper( $wp_query->get('order') ) ) ? 'ASC' : 'DESC';
+    }
+
+    return $clauses;
+}
+add_filter( 'posts_clauses', 'term_order_clauses', 10, 2 );
+
+
+
 add_filter( 'get_the_archive_title' , function( $title ) {
     return str_replace( 'Archives:', '', $title );
 } );
@@ -79,6 +130,30 @@ function get_home_address( $post_id ) {
 
         // Display HTML.
         return sprintf( '<div class="address">%s</div>', $address );
+    }
+}
+
+
+function get_home_location( $post_id ) {
+    
+    $location = get_field('location', $post_id );
+    
+    if( $location ) {
+
+        // Loop over segments and construct HTML.
+        $address = '';
+        foreach( array('city', 'state_short' ) as $i => $k ) {
+            if( isset( $location[ $k ] ) ) {
+                $seperator = 'city' == $k ? ',' : '';
+                $address .= sprintf( '<span class="segment-%s">%s%s</span> ', $k, $location[ $k ], $seperator );
+            }
+        }
+
+        // Trim trailing comma.
+        $address = trim( $address, ', ' );
+
+        // Display HTML.
+        return sprintf( '<div class="h3">%s</div>', $address );
     }
 }
 

@@ -65,28 +65,8 @@ $directions = sprintf( '<span class="directions"><a href="https://www.google.com
                      );
 
 
-$size = wp_is_mobile() ? 'medium' : 'large';
-$image = sprintf( '<a href="%s" class="thumbnail-link" data-fancybox="gallery-%s">%s</a>', 
-                    get_the_post_thumbnail_url( get_the_ID(), 'large' ), 
-                    get_the_ID(), 
-                    get_the_post_thumbnail( get_the_ID(), $size ) 
-                ); 
-
-$images = '';
-$photos = get_field('photos');
-
-if( ! empty( $photos ) ) {
-    
-    foreach( $photos as $photo ) {
-        $photo = wp_get_attachment_image_src( $photo, 'large' );
-        $images .= sprintf( '<a href="%s" data-fancybox="gallery-%d"></a>', $photo[0], get_the_ID() );
-    }
-
-    $images = sprintf( '<div class="photos">%s</div>', $images );    
-}
-
-
-
+$size = wp_is_mobile() ? 'medium' : 'medium';
+$image = sprintf( '%s',get_the_post_thumbnail( get_the_ID(), $size ) ); 
 
 $classes = [ 'cell marker' ]; 
 
@@ -136,7 +116,7 @@ plan posttype
 $classes = ['location-button'];
 
 printf( '<article class="%s" data-id="%d">      
-            <div class="thumbnail">%s%s%s</div>
+            <div class="thumbnail">%s</div>
             <div class="panel">
             <!--<div class="count"><span>%s</span></div>-->
             <div class="details" data="location-details">
@@ -151,9 +131,7 @@ printf( '<article class="%s" data-id="%d">
          </article>', 
         join( ' ', get_post_class( $classes ) ),
         get_the_ID(), 
-        $arrows,
         $image, 
-        $images,
         $wp_query->current_post + 1,
         $price, 
         $title,
