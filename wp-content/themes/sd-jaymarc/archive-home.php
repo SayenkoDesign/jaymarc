@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+add_filter('generate_show_post_navigation', '__return_false');
+
+
 
 get_header(); ?>
 
@@ -22,18 +25,34 @@ get_header(); ?>
 			 */
 			do_action( 'generate_before_main_content' );
 
+			/**
+			 * generate_archive_title hook.
+			 *
+			 * @since 0.1
+			 *
+			 * @hooked generate_archive_title - 10
+			 */
+			do_action( 'generate_archive_title' );
+
+			get_template_part( 'template-parts/home', 'share' );
+
+			// old how
+
+			// get_template_part( 'template-parts/home', 'featured' );
+			
+			get_template_part( 'template-parts/home', 'filters' );
+
+			echo '<div class="locations">';
+
+			echo '<div class="locations-wrap">';
+
+			echo '<div class="facetwp-template">';
+
 			if ( generate_has_default_loop() ) {
 				
 				if ( have_posts() ) :
 
-					/**
-					 * generate_archive_title hook.
-					 *
-					 * @since 0.1
-					 *
-					 * @hooked generate_archive_title - 10
-					 */
-					do_action( 'generate_archive_title' );
+					
 
 					/**
 					 * generate_before_loop hook.
@@ -43,17 +62,7 @@ get_header(); ?>
 					do_action( 'generate_before_loop', 'archive' );
 
 
-					get_template_part( 'template-parts/home', 'share' );
-
-					get_template_part( 'template-parts/home', 'how' );
-
-					get_template_part( 'template-parts/home', 'featured' );
 					
-					get_template_part( 'template-parts/home', 'filters' );
-
-					echo '<div class="locations">';
-
-					echo '<div class="facetwp-template">';
 
 					while ( have_posts() ) :
 
@@ -63,13 +72,7 @@ get_header(); ?>
 
 					endwhile;
 
-					echo '</div>';
-
-					echo '<div class="map">
-					<div id="acf-map" class="google-map" aria-hidden="true"></div>
-				</div>';
-
-					echo '</div>';
+					
 
 					/**
 					 * generate_after_loop hook.
@@ -86,6 +89,22 @@ get_header(); ?>
 
 				
 			}
+
+			echo '</div>';
+
+			echo facetwp_display('facet', 'pager_');
+
+			echo '</div>';
+
+			echo '<div class="map">';
+
+			echo facetwp_display('facet', 'map');
+
+			echo '</div>';
+
+			echo '</div>';
+
+			get_template_part( 'template-parts/home', 'how' );
 
 			/**
 			 * generate_after_main_content hook.

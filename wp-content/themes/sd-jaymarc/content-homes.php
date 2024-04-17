@@ -43,10 +43,10 @@ $arrow = _s_get_icon(
 
 $class = 'arrow';
 
-if( 'available' != $home_type->slug ) {
+/* if( 'available' != $home_type->slug ) {
     $arrow = '';
     $class = '';
-}
+} */
 
 $permalink = get_permalink();
 
@@ -65,28 +65,8 @@ $directions = sprintf( '<span class="directions"><a href="https://www.google.com
                      );
 
 
-$size = wp_is_mobile() ? 'medium' : 'large';
-$image = sprintf( '<a href="%s" class="thumbnail-link" data-fancybox="gallery-%s">%s</a>', 
-                    get_the_post_thumbnail_url( get_the_ID(), 'large' ), 
-                    get_the_ID(), 
-                    get_the_post_thumbnail( get_the_ID(), $size ) 
-                ); 
-
-$images = '';
-$photos = get_field('photos');
-
-if( ! empty( $photos ) ) {
-    
-    foreach( $photos as $photo ) {
-        $photo = wp_get_attachment_image_src( $photo, 'large' );
-        $images .= sprintf( '<a href="%s" data-fancybox="gallery-%d"></a>', $photo[0], get_the_ID() );
-    }
-
-    $images = sprintf( '<div class="photos">%s</div>', $images );    
-}
-
-
-
+$size = wp_is_mobile() ? 'medium' : 'medium';
+$image = sprintf( '%s',get_the_post_thumbnail( get_the_ID(), $size ) ); 
 
 $classes = [ 'cell marker' ]; 
 
@@ -133,13 +113,10 @@ sqft number
 plan posttype
 */
 
-printf( '<article id="marker-%s" class="%s" data-id="%d" data-title="%s" data-lat="%s" data-lng="%s" data-active="%s">
-            <div class="info-box">
-                <div class="info-box-top"></div>
-                <div class="info-box-middle"><h3>%s</h3><p>%s</p></div>
-                <div class="info-box-bottom"></div>
-             </div>            
-            <div class="thumbnail">%s%s%s</div>
+$classes = ['location-button'];
+
+printf( '<article class="%s" data-id="%d">      
+            <div class="thumbnail">%s</div>
             <div class="panel">
             <!--<div class="count"><span>%s</span></div>-->
             <div class="details" data="location-details">
@@ -152,18 +129,9 @@ printf( '<article id="marker-%s" class="%s" data-id="%d" data-title="%s" data-la
             <div class="show-for-mobile">%s</div>
             </div>
          </article>', 
-        get_the_ID(), 
         join( ' ', get_post_class( $classes ) ),
         get_the_ID(), 
-        esc_attr( get_the_title() ),
-        $location['lat'], 
-        $location['lng'],
-        $active,
-		$title,
-		$learn_more,
-        $arrows,
         $image, 
-        $images,
         $wp_query->current_post + 1,
         $price, 
         $title,

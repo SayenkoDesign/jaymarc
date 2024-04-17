@@ -1,5 +1,25 @@
 <?php
+function number_to_word($number) {
+    $wordMap = array(
+        0 => 'zero',
+        1 => 'one',
+        2 => 'two',
+        3 => 'three',
+        4 => 'four',
+        5 => 'five',
+        6 => 'six',
+        7 => 'seven',
+        8 => 'eight',
+        9 => 'nine'
+    );
 
+    // Check if the number is in the wordMap
+    if (isset($wordMap[$number])) {
+        return $wordMap[$number];
+    } else {
+        return "Number out of range";
+    }
+}
 
 add_filter('generate_svg_icon', function ($output, $icon) {
 	if ('menu-bars' === $icon) {

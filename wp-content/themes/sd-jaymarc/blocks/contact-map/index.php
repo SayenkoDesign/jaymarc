@@ -4,7 +4,7 @@ $location   = get_field( 'location' );
 wp_enqueue_script('contact-map');
 wp_localize_script( 'contact-map', 
 	'map_params', 
-	array( 'map_zoom' => 16,
+	array( 'map_zoom' => 12,
 		   'lat' => $location['lat'],
 		   'lng' => $location['lng']
 

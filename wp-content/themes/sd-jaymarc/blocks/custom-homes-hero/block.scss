@@ -16,11 +16,11 @@
 
 		&:after {
 			content: "";
-			top: 20px;
-			left: 20px;
+			top: 10px;
+			left: 10px;
 			position: absolute;
-			width: calc(100% - 40px);
-			height: calc(100% - 40px);
+			width: calc(100% - 20px);
+			height: calc(100% - 20px);
 			display: block;
 			border: 2px solid $white;
 		}

@@ -40,7 +40,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="grid">
 				<div class="grid__column grid__column--left">
 					<?php
-						$sqft = sprintf( '%s', number_format( get_field('square_feet') ) );
+						$sqft = get_field('square_feet') ;
+						if( ! empty($sqft )) {
+							$sqft = sprintf( '%s', number_format( $sqft ) );
+						}
 						$beds = get_field('beds');
 						$baths = get_field('baths');
 						$car_garages = get_field('car_garages'); // optional

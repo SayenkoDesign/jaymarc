@@ -17,14 +17,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div>
 			<?php
 			$title = get_the_title();
-			if( ! empty( _s_get_primary_term( 'home_type' ) ) ) {
-				$title = _s_get_primary_term( 'home_type' )->name;
-			}
-			printf( '<div class="h1">%s</div>', $title );
-
+			
 			$floor_plan = get_field( 'floor_plan' );
+			
 			if( ! empty( $floor_plan ) ) {
-				printf( '<div class="h3">Plan: <a href="%s">%s</a></div>', get_permalink( $floor_plan ), get_the_title( $floor_plan ) );
+				$title = get_the_title( $floor_plan );
+				
+			}
+
+			printf( '<h1>%s</h1>', $title );
+
+			echo get_home_location( get_the_ID() );
+
+			// Completion date
+			$date = '';
+			$estimated_completion = get_field('estimated_completion');
+			if(! empty($estimated_completion)) {
+				$estimated_completion_date = new DateTime($estimated_completion);
+				$current_date = new DateTime();
+
+				if ($estimated_completion_date >= $current_date ) {
+					$date = $estimated_completion_date->format('F Y');
+				} else {
+					$date = 'Complete';
+				}
+
+				printf( '<div class="complete-date">Completion Date: %s</div>', $date);
 			}
 			?>
 			</div>
@@ -54,10 +72,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					$location = get_field('location');
 					?>
-					<ul class="price-address">
-						<li class="price"><?php echo $price;?></li>
+					<ul class="price-status">
+						<li class="price">Offered At: <?php echo $price;?></li>
+						<?php 
+						$status = kp_get_term_name('home_type');
+						if(! empty($status)): 
+						?>
+						<li class="status"><?php echo $status;?></li>
+						<?php endif;?>
 						<li class="address"><h1><?php the_title();?>, <span><?php echo $location['city'];?>, <?php echo $location['state_short'];?> <?php echo $location['post_code'];?></span></h1></li>
 					</ul>
+
+					
+						
+	
 
 					<?php
 					$sqft = sprintf( '%s', number_format( get_field('square_feet') ) );
@@ -77,9 +105,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php endif;?>
 						<?php if( ! empty( $stories ) ):?>
 						<li class="stories"><?php echo $stories;?><span>Stories</span></li>
-						<?php endif;?>
-						<?php if( ! empty( $style ) ):?>
-						<li class="style"><?php echo $style->name;?><span>Style</span></li>
 						<?php endif;?>
 					</ul>
 				</div>
@@ -127,6 +152,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</section>
 
 		<?php
+		get_template_part( 'template-parts/home', 'summary' );
+
 		get_template_part( 'template-parts/home', 'highlights' );
 
 		get_template_part( 'template-parts/home', 'floorplans' );

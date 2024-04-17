@@ -14,7 +14,8 @@ $args = array(
 	'order' => 'ASC',
 	'orderby' => 'post__in',
 	'post__in' => $post_ids,
-	'posts_per_page' => count($post_ids)
+	'posts_per_page' => count($post_ids),
+	'facetwp' => false,
 );
 
 $previous = _s_get_icon(

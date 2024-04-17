@@ -10,6 +10,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 remove_action( 'generate_after_entry_title', 'generate_post_meta' );
+
+add_action('generate_after_entry_header', function() {
+
+	/* $register_date = get_field('register_date');
+	if(!empty($register_date)) {
+		printf('<p class="register-date">%s</p>', $register_date );
+	} */
+
+	$register = get_field('register');
+	if(!empty($register)) {
+		printf('<p class="acf-button-wrapper"><a class="acf-button button-small" href="%s" target="_blank">Register</a></p>', $register );
+	}
+}, 11);
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?> <?php generate_do_microdata( 'article' ); ?>>

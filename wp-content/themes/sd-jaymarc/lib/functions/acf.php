@@ -42,6 +42,18 @@ if( function_exists('acf_add_options_page') ) {
 }
 
 
+/**
+ * Generates a button with a link based on the provided arguments.
+ *
+ * @param array $args {
+ *     Optional. An array of arguments for generating the button.
+ *
+ *     @type array   $link     The link details for the button. Default false.
+ *     @type string  $classes  Additional classes for the button. Default empty string.
+ *     @type bool    $echo     Whether to echo the button or return it as a string. Default false.
+ * }
+ * @return string|bool The generated button HTML string, or false if the arguments are empty.
+ */
 function _s_acf_button( $args = [] ) {
     
     if( empty( $args ) ) {

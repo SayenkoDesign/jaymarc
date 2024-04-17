@@ -1,140 +1,141 @@
 TO DO:
 
-
-- homes - need block to show list sof homes they can edit by user
-- edit home page
-	- need to check and maoe sure that this home has been claimed. 
-	- user id should match the user acf field
-	- user should have an active membership if not an admin
-	- if account not active do not send email alerts to client
-
-
-
-
-- custom Homes - testimonials
-- single post image with video? featured_video
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-- Finish Available Homes
-- Locations
-- QA buttons, heading borders spacing etc. and mobile
-- Mobile header/mobile menu
-
-Locations
-
-- Jump links
-- Locations block, let them choose
-- Statistics
-- Schools
-- Top Businesses
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Quesitons:
-
-- What does a video testimonial look like? https://projects.invisionapp.com/d/main?origin=v7#/console/22034898/467373902/comments/148975103
-
-- Is this a slideshow, or just arrows to tell someone they should click? Then it opens a popup https://www.evernote.com/l/AOGJSyo1jcFDopIxasWZIqrIVpQINLzlP-A 
-
-
-- Private appointments schedule here https://projects.invisionapp.com/d/#/console/22034898/467375139/preview where does this go?
-
-- Which Individual BIO page do I use? There are two versions.
-
-- https://projects.invisionapp.com/d/main?origin=v7#/console/22034898/467690483/preview what do the buttons do for "Available, and Custom homes". Are those suppposed to be tabs, or are we going to have two different pages? I'd prefer two different pages.
-
-Need to understand how these are connected.
-
-- Portfolio - CPT that pulls photos from
-- Available homes - pulls data from floor plans
-- Floor Plans - where all the data is stored https://www.jaymarchomes.com/plan/florence-avante
-
-- Portfolio items are completely seperate.
-- Available home data can/is different than Floor plans
-
-BLOCKS 
-
-Custom Homes
-- Hero
-- More results
-
-About
-
-- Numbers
-- Our Values - slick
-- Logos - Slick
-- Team - Masonry? Filters? Erickson has this on Team page
-
-Reviews
-
-- testimonial - custom icon with initials or thumbnail
-
-
-
-Inner Blocks
-
-- DONE Accordion
-
-
-Reviews 
-
-- CPT
-- settings page for testimonials
-
-
-Available Homes
-
-- how to block
-- featured model block
-
-Single Available Home
-
-- photo gallery
-- Video
-- highlights
-- floor plans
-
-- Related homes
-
-Floor Plans
-- highlights
-- Secondary plan
-- Gallery for plans
-
-
-Custom Homes
-
-- Featured 
+Change orderby for Homes
+
+- set oderby to "home_type" under CPT settings
+- change order of terms? under Taxonomy settings
+
+https://jaymarcstg.wpenginepowered.com/wp-admin/post.php?post=29&action=edit
+
+update Status term order: APUPS
+
+Add ACF field
+
+- Sync all local ACF fields so they can be pushed with theme, thne go in and sync them on live
+
+- Summary https://jaymarcstg.wpenginepowered.com/wp-admin/post.php?post=476&action=edit
+
+
+
+// Order by term name
+
+/* function orderby_tax_clauses( $clauses, $wp_query ) {
+    $orderby_arg = $wp_query->get('orderby');
+    if ( ! empty( $orderby_arg ) && substr_count( $orderby_arg, 'taxonomy.' ) ) {
+      global $wpdb;
+      $bytax = "GROUP_CONCAT({$wpdb->terms}.name ORDER BY name ASC)";
+      $array = explode( ' ', $orderby_arg ); 
+      if ( ! isset( $array[1] ) ) {
+        $array = array( $bytax, "{$wpdb->posts}.post_date" );
+        $taxonomy = str_replace( 'taxonomy.', '', $orderby_arg );
+      } else {
+        foreach ( $array as $i => $t ) {
+          if ( substr_count( $t, 'taxonomy.' ) )  {
+            $taxonomy = str_replace( 'taxonomy.', '', $t );
+            $array[$i] = $bytax;
+          } elseif ( $t === 'meta_value' || $t === 'meta_value_num' ) {
+            $cast = ( $t === 'meta_value_num' ) ? 'SIGNED' : 'CHAR';
+            $array[$i] = "CAST( {$wpdb->postmeta}.meta_value AS {$cast} )";
+          } else {
+            $array[$i] = "{$wpdb->posts}.{$t}";
+          }
+        }
+      }
+      $order = strtoupper( $wp_query->get('order') ) === 'ASC' ? ' ASC' : ' DESC';
+      $ot = strtoupper( $wp_query->get('ordertax') );
+      $ordertax = $ot === 'DESC' || $ot === 'ASC' ? " $ot" : " $order";
+      $clauses['orderby'] = implode(', ',
+        array_map( function($a) use ( $ordertax, $order ) {
+          return ( strpos($a, 'GROUP_CONCAT') === 0 ) ? $a . $ordertax : $a . $order;
+        }, $array )
+      );
+      $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->term_relationships} ";
+      $clauses['join'] .= "ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id";
+      $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->term_taxonomy} ";
+      $clauses['join'] .= "USING (term_taxonomy_id)";
+      $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->terms} USING (term_id)";
+      $clauses['groupby'] = "object_id";
+      $clauses['where'] .= " AND (taxonomy = '{$taxonomy}' OR taxonomy IS NULL)";
+    }
+    return $clauses;
+  } */
+
+  // Order by term_id
+
+function orderby_tax_clauses( $clauses, $wp_query ) {
+    $orderby_arg = $wp_query->get('orderby');
+    if ( ! empty( $orderby_arg ) && substr_count( $orderby_arg, 'taxonomy.' ) ) {
+        global $wpdb;
+        $bytax = "GROUP_CONCAT({$wpdb->terms}.name ORDER BY {$wpdb->terms}.term_order ASC)";
+        $array = explode( ' ', $orderby_arg ); 
+        if ( ! isset( $array[1] ) ) {
+            $array = array( $bytax, "{$wpdb->posts}.post_date" );
+            $taxonomy = str_replace( 'taxonomy.', '', $orderby_arg );
+        } else {
+            foreach ( $array as $i => $t ) {
+                if ( substr_count( $t, 'taxonomy.' ) )  {
+                    $taxonomy = str_replace( 'taxonomy.', '', $t );
+                    $array[$i] = $bytax;
+                } elseif ( $t === 'meta_value' || $t === 'meta_value_num' ) {
+                    $cast = ( $t === 'meta_value_num' ) ? 'SIGNED' : 'CHAR';
+                    $array[$i] = "CAST( {$wpdb->postmeta}.meta_value AS {$cast} )";
+                } else {
+                    $array[$i] = "{$wpdb->posts}.{$t}";
+                }
+            }
+        }
+        $order = strtoupper( $wp_query->get('order') ) === 'ASC' ? ' ASC' : ' DESC';
+        $ot = strtoupper( $wp_query->get('ordertax') );
+        $ordertax = $ot === 'DESC' || $ot === 'ASC' ? " $ot" : " $order";
+        $clauses['orderby'] = implode(', ',
+            array_map( function($a) use ( $ordertax, $order ) {
+                return ( strpos($a, 'GROUP_CONCAT') === 0 ) ? $a . $ordertax : $a . $order;
+            }, $array )
+        );
+        $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->term_relationships} ";
+        $clauses['join'] .= "ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id";
+        $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->term_taxonomy} ";
+        $clauses['join'] .= "USING (term_taxonomy_id)";
+        $clauses['join'] .= " LEFT OUTER JOIN {$wpdb->terms} USING (term_id)";
+        $clauses['groupby'] = "object_id";
+        $clauses['where'] .= " AND (taxonomy = '{$taxonomy}' OR taxonomy IS NULL)";
+    }
+    return $clauses;
+}
+
+add_filter('posts_clauses', 'orderby_tax_clauses', 10, 2);
+
+add_action('pre_get_posts', 'add_custom_orderby_to_home_query');
+
+  function add_custom_orderby_to_home_query($query) {
+      // Ensure you're targeting the main query on the frontend and specifically for the "home" post type
+      if ($query->is_main_query() && !is_admin() && $query->is_post_type_archive('home')) {
+          // Here you can specify the condition under which your custom ordering should be applied
+          // For demonstration, let's say we always want to apply this on the "home" post type archive
+
+          $query->set('meta_query', array(
+                'relation' => 'OR',
+                array(
+                    'key' => 'estimated_completion',
+                    'compare' => 'EXISTS'
+                ),
+                array(
+                    'key' => 'estimated_completion',
+                    'compare' => 'NOT EXISTS'
+                )
+            ));
+            $query->set('orderby', 'taxonomy.home_type meta_value');
+
+            $query->set('ordertax', 'ASC');
+
+            $query->set('order', 'ASC');
+
+          
+          
+          // Remove the filter after it's used to avoid affecting other queries
+          add_action('the_posts', function($posts) {
+              remove_filter('posts_clauses', 'orderby_tax_clauses', 10);
+              return $posts;
+          }, 10, 2);
+      }
+  }

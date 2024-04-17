@@ -50,6 +50,15 @@ function initialise() {
 				]
 			},
 			{
+				"featureType": "administrative.locality",
+				"elementType": "labels",
+				"stylers": [
+					{
+						"visibility": "on"
+					}
+				]
+			},
+			{
 				"featureType": "landscape",
 				"elementType": "geometry",
 				"stylers": [
@@ -93,7 +102,7 @@ function initialise() {
 				"elementType": "labels",
 				"stylers": [
 					{
-						"visibility": "on"
+						"visibility": "off"
 					}
 				]
 			},
@@ -179,9 +188,6 @@ function initialise() {
 	google.maps.event.addListener(marker, 'click', function() { // Add a Click Listener to our marker
 		  infowindow.open(map,marker); // Open our InfoWindow
 	  }); */
-	google.maps.event.addDomListener(window, 'resize', function() { 
-		//map.setCenter(myLatlng); 
-		//map.panBy(95, -40)
-	}); // Keeps the Pin Central when resizing the browser on responsive sites
+	
 }
 google.maps.event.addDomListener(window, 'load', initialise); // Execute our 'initialise' function once the page has loaded.

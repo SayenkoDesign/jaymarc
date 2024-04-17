@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying posts within the loop.
+ * The template for displaying single posts.
  *
  * @package GeneratePress
  */
@@ -9,97 +9,45 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+global $wp_query;
 
-add_filter( 'generate_featured_image_output', function( $output ) {
-    return sprintf( // WPCS: XSS ok.
-        '<div class="post-image">
-                %2$s
-         </div>',
-         esc_url( get_permalink() ),
-         get_the_post_thumbnail(
-             get_the_ID(),
-             apply_filters( 'generate_page_header_default_size', 'full' ),
-             array(
-                 'itemprop' => 'image',
-             )
-         )
-    );
-} );
+$active = ! $wp_query->current_post ? 'true' : 'false';
 
-?>
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> <?php generate_do_microdata( 'article' ); ?>>
-	<div class="inside-article">
-		<?php
-		/**
-		 * generate_before_content hook.
-		 *
-		 * @since 0.1
-		 *
-		 * @hooked generate_featured_page_header_inside_single - 10
-		 */
-		do_action( 'generate_before_content' );
+$title = _s_format_string( get_the_title(), 'span', ['class' => 'title' ] ); 
 
-		if ( generate_show_entry_header() ) :
-			?>
-			<header <?php generate_do_attr( 'entry-header' ); ?>>
-				<?php
-				/**
-				 * generate_before_entry_title hook.
-				 *
-				 * @since 0.1
-				 */
-				do_action( 'generate_before_entry_title' );
+$permalink = get_permalink();
+    
+$learn_more = sprintf( '<div class="acf-button-wrapper"><a class="acf-button blue reversed" href="%s">%s</a></div>', $permalink, __( 'Learn more' ) );
 
-				printf( '<h2><a href="%s">%s</a></h2>', get_the_permalink(), get_the_title() );
+$size = wp_is_mobile() ? 'medium' : 'large';
+$image = get_the_post_thumbnail( get_the_ID(), $size );
 
-				$area = _s_get_primary_term('area');
-				if( ! empty( $area ) ) {
-					printf( '<h4>%s</h4>', $area->name );
-				}
+$area = _s_get_primary_term('area');
+if( ! empty( $area ) ) {
+    $area = sprintf( '<h4>%s</h4>', $area->name );
+}
 
-				/**
-				 * generate_after_entry_title hook.
-				 *
-				 * @since 0.1
-				 *
-				 * @hooked generate_post_meta - 10
-				 */
-				do_action( 'generate_after_entry_title' );
-				?>
-			</header>
-			<?php
-		endif;
+$classes = ['location-button'];
 
-		/**
-		 * generate_after_entry_header hook.
-		 *
-		 * @since 0.1
-		 *
-		 * @hooked generate_post_image - 10
-		 */
-		do_action( 'generate_after_entry_header' );
 
-		$itemprop = '';
 
-		if ( 'microdata' === generate_get_schema_type() ) {
-			$itemprop = ' itemprop="text"';
-		}
-
-		/**
-		 * generate_after_entry_content hook.
-		 *
-		 * @since 0.1
-		 *
-		 * @hooked generate_footer_meta - 10
-		 */
-		do_action( 'generate_after_entry_content' );
-
-		/**
-		 * generate_after_content hook.
-		 *
-		 * @since 0.1
-		 */
-		do_action( 'generate_after_content' );
-		?>
-	</div>
-</article>
+printf( '<article class="%s" data-id="%d">
+                 
+            <div class="thumbnail">%s</div>
+            <div class="panel">
+            <!--<div class="count"><span>%s</span></div>-->
+            <div class="details" data="location-details">
+                <h3 data-mh="location-title">%s</h3>
+                %s
+            </div>
+            <div class="show-for-mobile">%s</div>
+            </div>
+         </article>', 
+        join( ' ', get_post_class( $classes ) ),
+        get_the_ID(), 
+        $image, 
+        $wp_query->current_post + 1,
+        $title,
+        $area,
+        $learn_more
+);

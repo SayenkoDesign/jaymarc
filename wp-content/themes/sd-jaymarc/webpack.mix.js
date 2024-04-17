@@ -56,7 +56,7 @@ mix.autoload({
 });
 
 mix.js('assets/scripts/project.js', 'scripts')
-	.js('assets/scripts/acf-map.js', 'scripts')
+	//.js('assets/scripts/acf-map.js', 'scripts')
 	.js('assets/scripts/home-map.js', 'scripts')
 	.js('assets/scripts/contact-map.js', 'scripts')
 	.sass('assets/styles/style.scss', 'styles')
@@ -70,6 +70,8 @@ mix.js('assets/scripts/project.js', 'scripts')
 	.copyWatched('assets/images/**', 'dist/images', { base: 'assets/images' })
 
 ;
+
+mix.scripts('assets/scripts/infobox.js', 'dist/scripts/infobox.js');
 
 glob.sync('blocks/**/block.scss').map( function( file ) {
 	mix.sass(file, `blocks/${ path.basename(path.dirname(file)) }/styles/block.css`);

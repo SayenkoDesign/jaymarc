@@ -46,6 +46,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				 * @hooked generate_post_meta - 10
 				 */
 				do_action( 'generate_after_entry_title' );
+
+				$register_date = get_field('register_date');
+				if(!empty($register_date)) {
+					printf('<p class="register-date">%s</p>', $register_date );
+				}
 				?>
 			</header>
 			<?php
@@ -78,6 +83,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		);
 
 		printf( '<p><a href="%s" class="read-more">Read More</a></p>', get_permalink()  );
+
+		$register = get_field('register');
+	if(!empty($register)) {
+		printf('<p class="acf-button-wrapper"><a class="acf-button button-small" href="%s" target="_blank">Register</a></p>', $register );
+	}
 
 		/**
 		 * generate_after_entry_content hook.

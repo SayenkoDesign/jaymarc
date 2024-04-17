@@ -34,8 +34,9 @@ if ($loop->have_posts()) :
 				</div>
 				<div class="grid__text">
 					<h3><?php echo get_the_title(get_the_ID()); ?></h3>
-					<div class="job-title"><?php echo get_field('title', get_the_ID()); ?></div>
 					<div class="position"><?php echo get_field('position', get_the_ID()); ?></div>
+					<div class="job-title"><?php echo get_field('title', get_the_ID()); ?></div>
+					
 					
 					<a href="<?php the_permalink();?>" class="link-cover"><span class="screen-reader-text">read bio</span></a>
 				</div>

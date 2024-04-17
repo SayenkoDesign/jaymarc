@@ -7,6 +7,9 @@ export default {
 
 		$('.acf-block-home-available-custom-homes .overlay').matchHeight(true);
 
+		$('.sell-home-benefits figure').matchHeight(true);
+		
+
 		$(".wp-block-gallery .wp-block-image a").attr('data-fancybox', 'gallery');
 
 

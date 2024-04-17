@@ -94,9 +94,7 @@ if ($loop->have_posts()) :
 				<div class="<?php echo $container_class; ?>__column">
 					<div class="<?php echo $container_class; ?>__thumbnail">
 						<div class="background-image">
-							<figure>
 								<?php echo get_the_post_thumbnail(get_the_ID(), 'medium'); ?>
-							</figure>
 						</div>
 					</div>
 					<div class="<?php echo $container_class; ?>__content">
